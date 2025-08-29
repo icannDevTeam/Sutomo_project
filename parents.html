@@ -291,8 +291,24 @@
         <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gold/20 text-brown mb-6">Presentation • Parents</span>
         <h1 class="text-4xl md:text-5xl font-bold text-brown mb-6">Keeping Parents Connected at Sutomo</h1>
         <p class="text-muted text-lg mb-8">Transparent, real-time updates on grades, attendance, invoices, and school events — all in one app.</p>
-        <!-- Cards removed for spacing -->
-        <div class="mb-8"></div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="kpi-counter bg-white p-4 rounded-2xl shadow-md text-center">
+            <h2 id="kpi-grades" class="text-3xl font-bold text-brown">0</h2>
+            <p class="text-sm text-muted">Grades Viewed</p>
+          </div>
+          <div class="kpi-counter bg-white p-4 rounded-2xl shadow-md text-center">
+            <h2 id="kpi-ptc" class="text-3xl font-bold text-brown">0</h2>
+            <p class="text-sm text-muted">PTC Bookings</p>
+          </div>
+          <div class="kpi-counter bg-white p-4 rounded-2xl shadow-md text-center">
+            <h2 id="kpi-fees" class="text-3xl font-bold text-brown">0%</h2>
+            <p class="text-sm text-muted">Fees Paid</p>
+          </div>
+          <div class="kpi-counter bg-white p-4 rounded-2xl shadow-md text-center">
+            <h2 id="kpi-msg" class="text-3xl font-bold text-brown">0</h2>
+            <p class="text-sm text-muted">Messages Received</p>
+          </div>
+        </div>
       </div>
       <div class="animate-fade-in-up delay-200 flex justify-center">
         <div class="mobile-mockup">
@@ -698,6 +714,105 @@
         </div>
         <h3 class="text-xl font-bold text-brown mb-2">Progress Analytics</h3>
         <p class="text-muted">Visual progress tracking with comparative analytics and performance trends over time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="py-20 px-4">
+    <div class="max-w-7xl mx-auto parent-testimonial p-8 md:p-12 rounded-2xl">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="animate-fade-in-up">
+          <span class="inline-block px-4 py-2 rounded-full bg-white/20 text-white font-semibold mb-4">Parent Testimonial</span>
+          <h2 class="text-3xl font-bold text-white mb-6">"Finally, I feel truly connected to my child's education"</h2>
+          <p class="text-white/90 mb-6">The Sutomo Parent App has transformed how I engage with my child's school life. I no longer worry about missing important updates or scrambling to schedule meetings.</p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mr-4">
+              <i class="fas fa-user text-white"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-white">Mrs. Anna Wijaya</p>
+              <p class="text-white/80 text-sm">Parent of Grade 8 Student</p>
+            </div>
+          </div>
+        </div>
+        <div class="animate-fade-in-up delay-200 flex justify-center">
+          <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-sm">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white/20 p-4 rounded-xl text-center">
+                <p class="text-2xl font-bold text-white">92%</p>
+                <p class="text-white/80 text-sm">Satisfaction Rate</p>
+              </div>
+              <div class="bg-white/20 p-4 rounded-xl text-center">
+                <p class="text-2xl font-bold text-white">3.2x</p>
+                <p class="text-white/80 text-sm">More Engagement</p>
+              </div>
+              <div class="bg-white/20 p-4 rounded-xl text-center">
+                <p class="text-2xl font-bold text-white">87%</p>
+                <p class="text-white/80 text-sm">Faster Response</p>
+              </div>
+              <div class="bg-white/20 p-4 rounded-xl text-center">
+                <p class="text-2xl font-bold text-white">4.8/5</p>
+                <p class="text-white/80 text-sm">App Rating</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD PLACEHOLDER -->
+  <section id="dashboard" class="py-20 px-4 bg-cream">
+    <div class="max-w-7xl mx-auto text-center mb-12 animate-fade-in-up">
+      <span class="inline-block px-4 py-2 rounded-full bg-gold/20 text-brown font-semibold mb-4">Preview</span>
+      <h2 class="text-3xl font-bold text-brown mb-4">Parent Dashboard Preview</h2>
+      <p class="text-muted max-w-2xl mx-auto">Experience the intuitive interface designed specifically for parents to stay informed and engaged with their child's education journey.</p>
+    </div>
+    <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
+      <div class="md:col-span-2 bg-white p-6 rounded-2xl shadow-md checker flex items-center justify-center h-80">
+        <div class="text-center">
+          <i class="fas fa-window-restore text-gold text-4xl mb-4"></i>
+          <p class="text-brown font-semibold">Main Parent Dashboard Screenshot</p>
+          <p class="text-muted text-sm mt-2">Grades, attendance, and announcements at a glance</p>
+        </div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-md checker flex items-center justify-center h-80">
+        <div class="text-center">
+          <i class="fas fa-chart-line text-gold text-4xl mb-4"></i>
+          <p class="text-brown font-semibold">Performance Analytics</p>
+          <p class="text-muted text-sm mt-2">Detailed progress tracking and insights</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 px-4 bg-white">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div class="animate-fade-in-up">
+        <h2 class="text-3xl font-bold text-brown mb-6">Ready to Connect Parents?</h2>
+        <p class="text-muted mb-8">Parents gain transparency, schools gain trust. Start small with grades & attendance, then add finance & messaging modules as you expand.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#parents" class="inline-flex items-center px-6 py-3 rounded-xl font-semibold bg-gold text-brown hover:bg-opacity-90 transition-all">
+            <i class="fas fa-arrow-up mr-2"></i> Back to Top
+          </a>
+          <a href="#" class="inline-flex items-center px-6 py-3 rounded-xl font-semibold bg-brown text-white hover:bg-opacity-90 transition-all">
+            <i class="fas fa-download mr-2"></i> Download Brochure
+          </a>
+        </div>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow-md border">
+        <h3 class="text-xl font-bold text-brown mb-4 flex items-center">
+          <i class="fas fa-clipboard-check text-gold mr-2"></i> Parent Pilot Checklist
+        </h3>
+        <ul class="space-y-3 text-muted">
+          <li class="flex items-center"><i class="fas fa-check-square text-gold mr-2"></i> Select pilot classes (1 SMP, 1 SMA)</li>
+          <li class="flex items-center"><i class="fas fa-check-square text-gold mr-2"></i> Enable grade & attendance modules</li>
+          <li class="flex items-center"><i class="fas fa-check-square text-gold mr-2"></i> Configure invoices & notifications</li>
+          <li class="flex items-center"><i class="fas fa-check-square text-gold mr-2"></i> Train parents on app login & features</li>
+          <li class="flex items-center"><i class="fas fa-check-square text-gold mr-2"></i> Set up support channel for parents</li>
+        </ul>
       </div>
     </div>
   </section>

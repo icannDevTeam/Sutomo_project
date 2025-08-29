@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sutomo LMS - Teachers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brown: '#6B3A00',
+                        gold: '#D4AF37',
+                        maroon: '#8A1538',
+                        cream: '#F7F4EF',
+                        white: '#FFFFFF'
+                    },
+                    borderRadius: {
+                        'lg': '16px'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7F4EF;
+        }
+        .sparkline {
+            height: 20px;
+            width: 60px;
+        }
+        .donut {
+            width: 80px;
+            height: 80px;
+        }
+        .progress-ring__circle {
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        .message-bubble {
+            max-width: 70%;
+        }
+        .toast {
+            animation: slideIn 0.3s ease-out, fadeOut 0.5s ease-in 2.5s forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; visibility: hidden; }
+        }
+    </style>
+</head>
+<body class="bg-cream min-h-screen">
+    <!-- Top Bar -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm py-3 px-6 flex items-center justify-between">
+        <!-- Left: Logo and Title -->
+        <div class="flex items-center space-x-3">
+            <img src="image/logo_sutomo.png" alt="Sutomo Logo" class="h-8 w-auto">
+            <span class="text-brown font-bold text-xl">Sutomo LMS — Teachers</span>
+        </div>
+        
+        <!-- Center: Search -->
+        <div class="flex-1 max-w-2xl mx-6">
+            <div class="relative">
+                <input type="text" placeholder="Search (Press / to focus)" 
+                    class="w-full py-2 px-4 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gold">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
+        </div>
+        
+        <!-- Right: Icons and Avatar -->
+        <div class="flex items-center space-x-4">
+            <!-- PTC Bell -->
+            <div class="relative">
+                <button id="ptcBell" class="text-maroon hover:text-gold transition-colors">
+                    <i class="fas fa-bell text-xl"></i>
+                    <span class="absolute -top-1 -right-1 bg-gold text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </button>
+                <!-- PTC Dropdown -->
+                <div id="ptcDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg p-4 z-50">
+                    <h3 class="font-bold text-brown mb-3">Parent-Teacher Conferences</h3>
+                    <div class="space-y-3">
+                        <div class="border-b pb-3">
+                            <p class="font-medium">Li Na (Parent of Chen Wei)</p>
+                            <p class="text-sm text-gray-600">Sep 5, 14:00</p>
+                            <button class="mt-2 text-gold hover:underline text-sm">Open Schedule</button>
+                        </div>
+                        <div class="border-b pb-3">
+                            <p class="font-medium">Tan Mei (Parent of Tan Jia)</p>
+                            <p class="text-sm text-gray-600">Sep 6, 10:30</p>
+                            <button class="mt-2 text-gold hover:underline text-sm">Open Schedule</button>
+                        </div>
+                        <div>
+                            <p class="font-medium">Budi Santoso (Parent of Ayu Lestari)</p>
+                            <p class="text-sm text-gray-600">Sep 7, 11:45</p>
+                            <button class="mt-2 text-gold hover:underline text-sm">Open Schedule</button>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t">
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="font-medium">September</span>
+                            <div class="flex space-x-1">
+                                <button class="text-gold"><i class="fas fa-chevron-left"></i></button>
+                                <button class="text-gold"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-7 gap-1 mt-2 text-xs">
+                            <div class="text-center py-1 text-gray-400">S</div>
+                            <div class="text-center py-1 text-gray-400">M</div>
+                            <div class="text-center py-1 text-gray-400">T</div>
+                            <div class="text-center py-1 text-gray-400">W</div>
+                            <div class="text-center py-1 text-gray-400">T</div>
+                            <div class="text-center py-1 text-gray-400">F</div>
+                            <div class="text-center py-1 text-gray-400">S</div>
+                            <!-- Calendar days -->
+                            <div class="text-center py-1">28</div>
+                            <div class="text-center py-1">29</div>
+                            <div class="text-center py-1">30</div>
+                            <div class="text-center py-1">31</div>
+                            <div class="text-center py-1">1</div>
+                            <div class="text-center py-1 bg-gold text-white rounded-full">2</div>
+                            <div class="text-center py-1">3</div>
+                            <div class="text-center py-1">4</div>
+                            <div class="text-center py-1 bg-maroon text-white rounded-full">5</div>
+                            <div class="text-center py-1 bg-maroon text-white rounded-full">6</div>
+                            <div class="text-center py-1 bg-maroon text-white rounded-full">7</div>
+                            <div class="text-center py-1">8</div>
+                            <div class="text-center py-1">9</div>
+                            <div class="text-center py-1">10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Announcements -->
+            <button class="text-maroon hover:text-gold transition-colors">
+                <i class="fas fa-bullhorn text-xl"></i>
+            </button>
+            
+            <!-- Help -->
+            <button class="text-maroon hover:text-gold transition-colors">
+                <i class="fas fa-question-circle text-xl"></i>
+            </button>
+            
+            <!-- Avatar -->
+            <div class="h-10 w-10 rounded-full bg-gold flex items-center justify-center text-white font-bold">
+                TS
+            </div>
+        </div>
+    </header>
+
+    <!-- Announcements Banner -->
+    <div class="bg-maroon text-white px-6 py-3 flex justify-between items-center">
+        <div class="flex items-center">
+            <span class="mr-3">📢</span>
+            <p>Teachers Meeting — Friday 15:30, Auditorium B</p>
+        </div>
+        <button class="text-gold hover:underline font-medium">View Agenda</button>
+    </div>
+
+    <!-- Teacher Profile -->
+    <div class="bg-white rounded-lg shadow-sm mx-6 mt-6 p-6 flex items-center">
+        <div class="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center mr-6 overflow-hidden">
+            <img src="image/profile.avif" alt="Teacher Profile Photo" class="h-full w-full object-cover rounded-full">
+        </div>
+        <div class="flex-1">
+            <h1 class="text-2xl font-bold text-brown">Tina Sutomo</h1>
+            <p class="text-gray-600">Homeroom Teacher</p>
+            <div class="flex flex-wrap gap-2 mt-2">
+                <span class="bg-cream text-brown px-3 py-1 rounded-full text-sm">SMA XI Science A</span>
+                <span class="bg-cream text-brown px-3 py-1 rounded-full text-sm">SMP 8B</span>
+            </div>
+        </div>
+        <div class="flex gap-3">
+            <button class="bg-gold hover:bg-brown text-white px-4 py-2 rounded-lg font-medium transition-colors">New Assignment</button>
+            <button class="bg-maroon hover:bg-brown text-white px-4 py-2 rounded-lg font-medium transition-colors">Mark Attendance</button>
+            <button class="bg-brown hover:bg-maroon text-white px-4 py-2 rounded-lg font-medium transition-colors">Message Class</button>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-6 py-6 grid grid-cols-12 gap-6">
+        <!-- Row 1: KPIs -->
+        <div class="col-span-12 grid grid-cols-12 gap-6">
+            <!-- To Grade -->
+            <div class="col-span-12 md:col-span-6 lg:col-span-3 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-500">To Grade</p>
+                        <h2 id="toGradeCount" class="text-3xl font-bold text-brown">0</h2>
+                    </div>
+                    <div class="bg-cream p-3 rounded-lg">
+                        <i class="fas fa-check-double text-gold text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feedback % -->
+            <div class="col-span-12 md:col-span-6 lg:col-span-3 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-500">Feedback %</p>
+                        <h2 class="text-3xl font-bold text-brown">92%</h2>
+                    </div>
+                    <div class="bg-cream p-3 rounded-lg">
+                        <svg class="sparkline" viewBox="0 0 60 20">
+                            <polyline fill="none" stroke="#D4AF37" stroke-width="2" points="0,15 10,10 20,12 30,5 40,8 50,15 60,10" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Classes Today -->
+            <div class="col-span-12 md:col-span-6 lg:col-span-3 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-500">Classes Today</p>
+                        <h2 id="classesTodayCount" class="text-3xl font-bold text-brown">0</h2>
+                    </div>
+                    <div class="bg-cream p-3 rounded-lg">
+                        <i class="fas fa-chalkboard-teacher text-gold text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Parent Messages -->
+            <div class="col-span-12 md:col-span-6 lg:col-span-3 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-500">Parent Messages</p>
+                        <h2 id="parentMessagesCount" class="text-3xl font-bold text-brown">0</h2>
+                    </div>
+                    <div class="bg-cream p-3 rounded-lg">
+                        <i class="fas fa-comments text-gold text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Gradebook + Timetable -->
+        <div class="col-span-12 grid grid-cols-12 gap-6">
+            <!-- Gradebook Snapshot -->
+            <div class="col-span-12 lg:col-span-7 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-brown">Gradebook Snapshot</h3>
+                    <button class="text-gold hover:underline">View All</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left py-2 text-gray-600">Student</th>
+                                <th class="text-left py-2 text-gray-600">Assignment</th>
+                                <th class="text-left py-2 text-gray-600">Score</th>
+                                <th class="text-left py-2 text-gray-600">Status</th>
+                                <th class="text-left py-2 text-gray-600">Updated</th>
+                                <th class="text-left py-2 text-gray-600">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-cream">
+                                <td class="py-3">Chen Wei</td>
+                                <td class="py-3">Math Quiz 1</td>
+                                <td class="py-3">-</td>
+                                <td class="py-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Pending</span></td>
+                                <td class="py-3">2 days ago</td>
+                                <td class="py-3">
+                                    <div class="relative">
+                                        <button class="text-gold"><i class="fas fa-ellipsis-v"></i></button>
+                                        <div class="absolute right-0 mt-1 w-40 bg-white shadow-lg rounded-lg p-2 hidden">
+                                            <button class="block w-full text-left px-3 py-2 hover:bg-cream rounded">Quick Mark: A</button>
+                                            <button class="block w-full text-left px-3 py-2 hover:bg-cream rounded">Quick Mark: B</button>
+                                            <button class="block w-full text-left px-3 py-2 hover:bg-cream rounded">Quick Mark: C</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-cream">
+                                <td class="py-3">Ayu Lestari</td>
+                                <td class="py-3">Science Report</td>
+                                <td class="py-3">87</td>
+                                <td class="py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Graded</span></td>
+                                <td class="py-3">1 hour ago</td>
+                                <td class="py-3"><i class="fas fa-check text-green-500"></i></td>
+                            </tr>
+                            <tr class="border-b hover:bg-cream">
+                                <td class="py-3">Tan Jia</td>
+                                <td class="py-3">History Essay</td>
+                                <td class="py-3">-</td>
+                                <td class="py-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Pending</span></td>
+                                <td class="py-3">1 day ago</td>
+                                <td class="py-3">
+                                    <div class="relative">
+                                        <button class="text-gold"><i class="fas fa-ellipsis-v"></i></button>
+                                        <div class="absolute right-0 mt-1 w-40 bg-white shadow-lg rounded-lg p-2 hidden">
+                                            <button class="block w-full text-left px-3 py-2 hover:bg-cream rounded">Quick Mark: A</button>
+                                            <button class="block w-full text-left px-3 py-2 hover:bg-cream rounded">Quick Mark: B</button>
+                                            <button class="block w-full text-left px-3 py-2 hover:bg-cream rounded">Quick Mark: C</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Today's Timetable -->
+            <div class="col-span-12 lg:col-span-5 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-brown">Today's Timetable</h3>
+                    <button class="text-gold hover:underline">Full Schedule</button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center p-3 rounded-lg border">
+                        <div class="w-16 text-gray-500">08:00</div>
+                        <div class="flex-1">
+                            <p class="font-medium">Mathematics</p>
+                            <p class="text-sm text-gray-500">Room 301</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-3 rounded-lg border bg-gold bg-opacity-10 border-gold">
+                        <div class="w-16 text-gold font-medium">09:45</div>
+                        <div class="flex-1">
+                            <p class="font-medium text-gold">Physics</p>
+                            <p class="text-sm text-gold">Lab 2</p>
+                        </div>
+                        <span class="bg-gold text-white px-2 py-1 rounded text-xs">NOW</span>
+                    </div>
+                    <div class="flex items-center p-3 rounded-lg border">
+                        <div class="w-16 text-gray-500">11:30</div>
+                        <div class="flex-1">
+                            <p class="font-medium">English</p>
+                            <p class="text-sm text-gray-500">Room 205</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-3 rounded-lg border">
+                        <div class="w-16 text-gray-500">13:15</div>
+                        <div class="flex-1">
+                            <p class="font-medium">Chemistry</p>
+                            <p class="text-sm text-gray-500">Lab 1</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-3 rounded-lg border">
+                        <div class="w-16 text-gray-500">15:00</div>
+                        <div class="flex-1">
+                            <p class="font-medium">Biology</p>
+                            <p class="text-sm text-gray-500">Room 402</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: Assignments & Feedback -->
+        <div class="col-span-12 grid grid-cols-12 gap-6">
+            <!-- Assignments Due This Week -->
+            <div class="col-span-12 lg:col-span-6 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-brown">Assignments Due This Week</h3>
+                    <button class="text-gold hover:underline">View All</button>
+                </div>
+                <div class="space-y-4">
+                    <div class="border rounded-lg p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="bg-maroon text-white px-2 py-1 rounded text-xs">Mathematics</span>
+                            <span class="text-sm text-gray-500">Due: Sep 5</span>
+                        </div>
+                        <h4 class="font-medium mb-2">Algebra Problem Set</h4>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-gold h-2.5 rounded-full" style="width: 65%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>13/20 submitted</span>
+                            <span>65%</span>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="bg-brown text-white px-2 py-1 rounded text-xs">Physics</span>
+                            <span class="text-sm text-gray-500">Due: Sep 7</span>
+                        </div>
+                        <h4 class="font-medium mb-2">Lab Report - Electromagnetism</h4>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-gold h-2.5 rounded-full" style="width: 30%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>6/20 submitted</span>
+                            <span>30%</span>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="bg-gold text-white px-2 py-1 rounded text-xs">English</span>
+                            <span class="text-sm text-gray-500">Due: Sep 8</span>
+                        </div>
+                        <h4 class="font-medium mb-2">Essay - Modern Poetry</h4>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-gold h-2.5 rounded-full" style="width: 45%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>9/20 submitted</span>
+                            <span>45%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feedback Stream -->
+            <div class="col-span-12 lg:col-span-6 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-brown">Feedback Stream</h3>
+                    <button class="text-gold hover:underline">View All</button>
+                </div>
+                <div class="space-y-4">
+                    <div class="border rounded-lg p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="font-medium">Chen Wei - Math Quiz 1</span>
+                            <span class="text-sm text-gray-500">2 hours ago</span>
+                        </div>
+                        <p class="text-sm mb-2">Good effort showing all work. Watch signs in quadratic formula.</p>
+                        <div class="flex gap-2">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">On-time</span>
+                            <span class="bg-cream text-brown px-2 py-1 rounded text-xs">Score: 85</span>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="font-medium">Ayu Lestari - Science Report</span>
+                            <span class="text-sm text-gray-500">3 hours ago</span>
+                        </div>
+                        <p class="text-sm mb-2">Excellent research and presentation. Well-structured arguments.</p>
+                        <div class="flex gap-2">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">On-time</span>
+                            <span class="bg-cream text-brown px-2 py-1 rounded text-xs">Score: 92</span>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="font-medium">Tan Jia - History Essay</span>
+                            <span class="text-sm text-gray-500">5 hours ago</span>
+                        </div>
+                        <p class="text-sm mb-2">Needs more primary sources to support your thesis.</p>
+                        <div class="flex gap-2">
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Late</span>
+                            <span class="bg-cream text-brown px-2 py-1 rounded text-xs">Score: 78</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 4: Attendance + Composer -->
+        <div class="col-span-12 grid grid-cols-12 gap-6">
+            <!-- Attendance Quick Mark -->
+            <div class="col-span-12 lg:col-span-7 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-brown">Attendance Quick Mark</h3>
+                    <div>
+                        <select class="border rounded-lg px-3 py-2">
+                            <option>SMA XI Science A</option>
+                            <option>SMP 8B</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left py-2 text-gray-600">Student</th>
+                                <th class="text-center py-2 text-gray-600">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-cream">
+                                <td class="py-3">Chen Wei</td>
+                                <td class="py-3 text-center">
+                                    <div class="flex justify-center space-x-2">
+                                        <button class="bg-green-100 text-green-800 px-3 py-1 rounded-lg text-sm hover:bg-green-200">Present</button>
+                                        <button class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-sm hover:bg-yellow-200">Absent</button>
+                                        <button class="bg-red-100 text-red-800 px-3 py-1 rounded-lg text-sm hover:bg-red-200">Late</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-cream">
+                                <td class="py-3">Ayu Lestari</td>
+                                <td class="py-3 text-center">
+                                    <div class="flex justify-center space-x-2">
+                                        <button class="bg-green-100 text-green-800 px-3 py-1 rounded-lg text-sm hover:bg-green-200">Present</button>
+                                        <button class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-sm hover:bg-yellow-200">Absent</button>
+                                        <button class="bg-red-100 text-red-800 px-3 py-1 rounded-lg text-sm hover:bg-red-200">Late</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-cream">
+                                <td class="py-3">Tan Jia</td>
+                                <td class="py-3 text-center">
+                                    <div class="flex justify-center space-x-2">
+                                        <button class="bg-green-100 text-green-800 px-3 py-1 rounded-lg text-sm hover:bg-green-200">Present</button>
+                                        <button class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-sm hover:bg-yellow-200">Absent</button>
+                                        <button class="bg-red-100 text-red-800 px-3 py-1 rounded-lg text-sm hover:bg-red-200">Late</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-cream">
+                                <td class="py-3">Budi Rahman</td>
+                                <td class="py-3 text-center">
+                                    <div class="flex justify-center space-x-2">
+                                        <button class="bg-green-100 text-green-800 px-3 py-1 rounded-lg text-sm hover:bg-green-200">Present</button>
+                                        <button class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-sm hover:bg-yellow-200">Absent</button>
+                                        <button class="bg-red-100 text-red-800 px-3 py-1 rounded-lg text-sm hover:bg-red-200">Late</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button id="saveAttendance" class="mt-4 bg-gold hover:bg-brown text-white px-4 py-2 rounded-lg font-medium transition-colors w-full">Save Attendance</button>
+            </div>
+            
+            <!-- Announcements Composer -->
+            <div class="col-span-12 lg:col-span-5 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+                <h3 class="font-bold text-brown mb-4">Announcements Composer</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-1">Audience</label>
+                        <select class="w-full border rounded-lg px-3 py-2">
+                            <option>Class</option>
+                            <option>Grade</option>
+                            <option>All Teachers</option>
+                            <option>All Students</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Subject</label>
+                        <input type="text" class="w-full border rounded-lg px-3 py-2" placeholder="Announcement subject">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Message</label>
+                        <textarea class="w-full border rounded-lg px-3 py-2 h-32" placeholder="Type your announcement here..."></textarea>
+                    </div>
+                    <button id="sendAnnouncement" class="bg-gold hover:bg-brown text-white px-4 py-2 rounded-lg font-medium transition-colors w-full">Send Announcement</button>
+                </div>
+                
+                <div class="mt-6">
+                    <h4 class="font-bold text-brown mb-3">Recent Announcements</h4>
+                    <div class="space-y-3">
+                        <div class="border rounded-lg p-3">
+                            <h5 class="font-medium">Policy Update</h5>
+                            <p class="text-sm text-gray-600">Please review the updated exam integrity policy in the staff portal.</p>
+                            <p class="text-xs text-gray-500 mt-1">2 hours ago</p>
+                        </div>
+                        <div class="border rounded-lg p-3">
+                            <h5 class="font-medium">Exam Integrity Reminder</h5>
+                            <p class="text-sm text-gray-600">Reminder to all teachers about maintaining exam integrity during midterms.</p>
+                            <p class="text-xs text-gray-500 mt-1">Yesterday</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 5: Upcoming Events -->
+        <div class="col-span-12 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-brown">Upcoming School Events</h3>
+                <button class="text-gold hover:underline">View Calendar</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="border rounded-lg p-4">
+                    <div class="bg-maroon text-white text-center py-1 rounded text-sm mb-3">Sep 12</div>
+                    <h4 class="font-medium mb-2">Science Fair</h4>
+                    <p class="text-sm text-gray-600">Annual science fair exhibition</p>
+                    <button class="text-gold hover:underline text-sm mt-2">Add to Calendar</button>
+                </div>
+                <div class="border rounded-lg p-4">
+                    <div class="bg-gold text-white text-center py-1 rounded text-sm mb-3">Sep 20</div>
+                    <h4 class="font-medium mb-2">Sports Day</h4>
+                    <p class="text-sm text-gray-600">Inter-house sports competition</p>
+                    <button class="text-gold hover:underline text-sm mt-2">Add to Calendar</button>
+                </div>
+                <div class="border rounded-lg p-4">
+                    <div class="bg-brown text-white text-center py-1 rounded text-sm mb-3">Sep 25</div>
+                    <h4 class="font-medium mb-2">Language Week</h4>
+                    <p class="text-sm text-gray-600">Cultural and language activities</p>
+                    <button class="text-gold hover:underline text-sm mt-2">Add to Calendar</button>
+                </div>
+                <div class="border rounded-lg p-4">
+                    <div class="bg-green-600 text-white text-center py-1 rounded text-sm mb-3">Oct 5</div>
+                    <h4 class="font-medium mb-2">Parent-Teacher Conference</h4>
+                    <p class="text-sm text-gray-600">Term 1 progress discussions</p>
+                    <button class="text-gold hover:underline text-sm mt-2">Add to Calendar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 6: Student Progress & Reports -->
+        <div class="col-span-12 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-brown">Student Progress & Reports</h3>
+            </div>
+            <div class="grid grid-cols-12 gap-6">
+                <div class="col-span-12 md:col-span-5">
+                    <div class="flex items-center mb-4">
+                        <select class="border rounded-lg px-3 py-2 mr-3">
+                            <option>SMA XI Science A</option>
+                            <option>SMP 8B</option>
+                        </select>
+                        <button id="generateReports" class="bg-gold hover:bg-brown text-white px-4 py-2 rounded-lg font-medium transition-colors">Generate Reports</button>
+                    </div>
+                    <div class="bg-cream rounded-lg p-4 mb-6">
+                        <h4 class="font-medium text-brown mb-3">Subject Averages</h4>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Mathematics</span>
+                                    <span>84%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-gold h-2.5 rounded-full" style="width: 84%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>English</span>
+                                    <span>78%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-gold h-2.5 rounded-full" style="width: 78%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Physics</span>
+                                    <span>89%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-gold h-2.5 rounded-full" style="width: 89%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Chinese</span>
+                                    <span>92%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-gold h-2.5 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <div class="relative donut">
+                            <svg viewBox="0 0 36 36" class="donut">
+                                <circle cx="18" cy="18" r="15.9155" class="progress-ring__circle stroke-gray-200" stroke-width="2" fill="transparent"/>
+                                <circle cx="18" cy="18" r="15.9155" class="progress-ring__circle stroke-gold" stroke-width="2" fill="transparent" stroke-dasharray="100, 100" stroke-dashoffset="22"/>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-600">Overall Completion</p>
+                            <p class="text-2xl font-bold text-brown">78%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-7">
+                    <h4 class="font-medium text-brown mb-3">Student Reports</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b">
+                                    <th class="text-left py-2 text-gray-600">Student</th>
+                                    <th class="text-left py-2 text-gray-600">Progress</th>
+                                    <th class="text-left py-2 text-gray-600">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b hover:bg-cream">
+                                    <td class="py-3">Chen Wei</td>
+                                    <td class="py-3">
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                            <div class="bg-gold h-2.5 rounded-full" style="width: 92%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3"><button class="text-gold hover:underline text-sm">Open Report</button></td>
+                                </tr>
+                                <tr class="border-b hover:bg-cream">
+                                    <td class="py-3">Ayu Lestari</td>
+                                    <td class="py-3">
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                            <div class="bg-gold h-2.5 rounded-full" style="width: 88%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3"><button class="text-gold hover:underline text-sm">Open Report</button></td>
+                                </tr>
+                                <tr class="border-b hover:bg-cream">
+                                    <td class="py-3">Tan Jia</td>
+                                    <td class="py-3">
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                            <div class="bg-gold h-2.5 rounded-full" style="width: 76%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3"><button class="text-gold hover:underline text-sm">Open Report</button></td>
+                                </tr>
+                                <tr class="border-b hover:bg-cream">
+                                    <td class="py-3">Budi Rahman</td>
+                                    <td class="py-3">
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                            <div class="bg-gold h-2.5 rounded-full" style="width: 81%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3"><button class="text-gold hover:underline text-sm">Open Report</button></td>
+                                </tr>
+                                <tr class="border-b hover:bg-cream">
+                                    <td class="py-3">Dewi Suryani</td>
+                                    <td class="py-3">
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                            <div class="bg-gold h-2.5 rounded-full" style="width: 85%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3"><button class="text-gold hover:underline text-sm">Open Report</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- In-App Chat Panel -->
+    <div id="chatPanel" class="fixed right-0 top-0 h-full w-96 bg-white shadow-lg z-50 transform transition-transform duration-300 translate-x-96">
+        <div class="flex flex-col h-full">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 border-b">
+                <h3 class="font-bold text-brown">Messages</h3>
+                <button id="closeChat" class="text-gray-500 hover:text-brown">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="flex border-b">
+                <button class="flex-1 py-3 text-center font-medium text-brown border-b-2 border-brown">Parents</button>
+                <button class="flex-1 py-3 text-center text-gray-500 hover:text-brown">Students</button>
+            </div>
+            
+            <!-- Conversations List -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="p-4 border-b hover:bg-cream cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Li Na (Parent of Chen Wei)</p>
+                                <p class="text-sm text-gray-500">How is Chen Wei's progress in math?</p>
+                            </div>
+                        </div>
+                        <span class="bg-gold text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">1</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">2 hours ago</p>
+                </div>
+                <div class="p-4 border-b hover:bg-cream cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Tan Mei (Parent of Tan Jia)</p>
+                                <p class="text-sm text-gray-500">Regarding the history assignment...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">5 hours ago</p>
+                </div>
+                <div class="p-4 border-b hover:bg-cream cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Budi Santoso (Parent of Ayu Lestari)</p>
+                                <p class="text-sm text-gray-500">Thank you for the science grade!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Yesterday</p>
+                </div>
+                <div class="p-4 border-b hover:bg-cream cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Chen Wei</p>
+                                <p class="text-sm text-gray-500">I have a question about problem #5...</p>
+                            </div>
+                        </div>
+                        <span class="bg-gold text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">30 minutes ago</p>
+                </div>
+            </div>
+            
+            <!-- Message Thread (hidden until conversation selected) -->
+            <div class="hidden flex-1 flex-col border-t">
+                <!-- Message header -->
+                <div class="p-3 border-b flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Li Na (Parent of Chen Wei)</p>
+                            <p class="text-xs text-gray-500">Online</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="text-gold hover:text-brown"><i class="fas fa-phone"></i></button>
+                        <button class="text-gold hover:text-brown"><i class="fas fa-envelope"></i></button>
+                        <button class="text-gold hover:text-brown"><i class="fas fa-external-link-alt"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Messages -->
+                <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                    <div class="flex justify-start">
+                        <div class="message-bubble bg-gray-100 rounded-lg p-3">
+                            <p>Hello Ms. Sutomo, how is Chen Wei's progress in math recently?</p>
+                            <p class="text-xs text-gray-500 mt-1">2:30 PM</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <div class="message-bubble bg-gold bg-opacity-20 rounded-lg p-3">
+                            <p>Hello Mrs. Li, Chen Wei is doing well. He scored 85 on the last quiz.</p>
+                            <p class="text-xs text-gray-500 mt-1">2:32 PM</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-start">
+                        <div class="message-bubble bg-gray-100 rounded-lg p-3">
+                            <p>That's good to hear. He's been practicing more. Any areas he needs to focus on?</p>
+                            <p class="text-xs text-gray-500 mt-1">2:35 PM</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <div class="message-bubble bg-gold bg-opacity-20 rounded-lg p-3">
+                            <p>He should work on the quadratic formula applications. I'll send some extra practice.</p>
+                            <p class="text-xs text-gray-500 mt-1">2:36 PM</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-start">
+                        <div class="typing-indicator flex space-x-1">
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Message composer -->
+                <div class="p-3 border-t">
+                    <div class="flex">
+                        <input type="text" placeholder="Type a message..." class="flex-1 border rounded-lg px-3 py-2">
+                        <button class="ml-2 text-gold hover:text-brown"><i class="fas fa-paperclip"></i></button>
+                        <button class="ml-2 bg-gold text-white px-3 py-2 rounded-lg">Send</button>
+                    </div>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        <button class="text-xs bg-cream text-brown px-2 py-1 rounded">Attendance update</button>
+                        <button class="text-xs bg-cream text-brown px-2 py-1 rounded">Grade posted</button>
+                        <button class="text-xs bg-cream text-brown px-2 py-1 rounded">Meeting reminder</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Toggle Button -->
+    <button id="openChat" class="fixed right-6 bottom-6 h-14 w-14 rounded-full bg-gold text-white flex items-center justify-center shadow-lg hover:bg-brown transition-colors">
+        <i class="fas fa-comment-dots text-xl"></i>
+    </button>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 space-y-2 z-50"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Count-up animations
+            function animateValue(id, start, end, duration) {
+                const obj = document.getElementById(id);
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+            
+            animateValue("toGradeCount", 0, 26, 1000);
+            animateValue("classesTodayCount", 0, 5, 1000);
+            animateValue("parentMessagesCount", 0, 12, 1000);
+            
+            // PTC Bell dropdown
+            const ptcBell = document.getElementById('ptcBell');
+            const ptcDropdown = document.getElementById('ptcDropdown');
+            
+            ptcBell.addEventListener('click', function(e) {
+                e.stopPropagation();
+                ptcDropdown.classList.toggle('hidden');
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!ptcBell.contains(e.target) && !ptcDropdown.contains(e.target)) {
+                    ptcDropdown.classList.add('hidden');
+                }
+            });
+            
+            // Chat panel functionality
+            const chatPanel = document.getElementById('chatPanel');
+            const openChat = document.getElementById('openChat');
+            const closeChat = document.getElementById('closeChat');
+            
+            openChat.addEventListener('click', function() {
+                chatPanel.classList.remove('translate-x-96');
+            });
+            
+            closeChat.addEventListener('click', function() {
+                chatPanel.classList.add('translate-x-96');
+            });
+            
+            // Toast functionality
+            function showToast(message, type = 'info') {
+                const toast = document.createElement('div');
+                toast.className = `toast bg-white rounded-lg shadow-lg p-4 flex items-center ${type === 'success' ? 'border-l-4 border-gold' : ''}`;
+                toast.innerHTML = `
+                    <i class="fas ${type === 'success' ? 'fa-check-circle text-gold' : 'fa-info-circle text-blue-500'} mr-3"></i>
+                    <span>${message}</span>
+                `;
+                
+                document.getElementById('toastContainer').appendChild(toast);
+                
+                // Remove toast after animation
+                setTimeout(() => {
+                    toast.remove();
+                }, 3000);
+            }
+            
+            // Button actions with toasts
+            document.getElementById('saveAttendance').addEventListener('click', function() {
+                showToast('Attendance saved successfully', 'success');
+            });
+            
+            document.getElementById('sendAnnouncement').addEventListener('click', function() {
+                showToast('Announcement sent', 'success');
+            });
+            
+            document.getElementById('generateReports').addEventListener('click', function() {
+                showToast('Reports queued for generation', 'success');
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === '/') {
+                    e.preventDefault();
+                    document.querySelector('input[type="text"]').focus();
+                }
+                if (e.key === 'c' || e.key === 'C') {
+                    e.preventDefault();
+                    chatPanel.classList.remove('translate-x-96');
+                }
+            });
+            
+            // Demo: Click on conversation to open message thread
+            const conversationItems = document.querySelectorAll('#chatPanel .p-4.border-b');
+            const messageThread = document.querySelector('#chatPanel .flex-col.border-t');
+            
+            conversationItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelector('#chatPanel .overflow-y-auto').classList.add('hidden');
+                    messageThread.classList.remove('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
