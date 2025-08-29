@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yayasan Perguruan Sutomo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brown: '#6B3A00',
+                        gold: '#D4AF37',
+                        maroon: '#8A1538',
+                        cream: '#F7F4EF'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7F4EF;
+        }
+        
+        .logo-glow {
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
+        }
+        
+        .role-circle {
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .role-circle:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12), 0 0 0 3px #D4AF37;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 200px;
+        }
+        
+        .count-up {
+            transition: all 2s ease-out;
+        }
+        
+        /* Attendance chart styling */
+        .line-path {
+            fill: none;
+            stroke: #6B3A00;
+            stroke-width: 2;
+            stroke-linejoin: round;
+        }
+        
+        .area-path {
+            fill: rgba(107, 58, 0, 0.1);
+        }
+        
+        /* Donut chart styling */
+        .donut-segment {
+            fill: none;
+            stroke-width: 15;
+            stroke-linecap: round;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-cream flex flex-col">
+    <!-- Hero Section -->
+    <section class="py-12 md:py-20 px-4 flex flex-col items-center">
+        <div class="text-center mb-10">
+            <img src="image/logo_sutomo.png" alt="Sutomo Logo" class="logo-glow mx-auto w-40 h-40 mb-6">
+            <h1 class="text-4xl md:text-5xl font-bold text-brown mb-4">Yayasan Perguruan Sutomo</h1>
+            <p class="text-xl text-gray-600">Innovation That Sustains. Digitalization That Empowers.</p>
+        </div>
+        <!-- Circles & Dashboard Side by Side -->
+        <div class="w-full flex flex-col lg:flex-row items-center justify-center gap-12">
+            <!-- Role Circles Left: 2x2 grid, larger circles -->
+            <div class="grid grid-cols-2 gap-10">
+                <a href="admin.html" class="group flex flex-col items-center">
+                    <div class="role-circle w-52 h-52 rounded-full flex items-center justify-center animate-float bg-brown group-hover:bg-gold transition-colors">
+                        <i class="fas fa-user-cog text-6xl text-white group-hover:text-brown"></i>
+                    </div>
+                    <span class="mt-4 text-xl font-medium text-brown group-hover:font-bold transition-all">Administration</span>
+                </a>
+                <a href="teacher.html" class="group flex flex-col items-center">
+                    <div class="role-circle w-52 h-52 rounded-full flex items-center justify-center animate-float bg-gold group-hover:bg-maroon transition-colors">
+                        <i class="fas fa-chalkboard-teacher text-6xl text-white group-hover:text-gold"></i>
+                    </div>
+                    <span class="mt-4 text-xl font-medium text-gold group-hover:font-bold transition-all">Teachers</span>
+                </a>
+                <a href="parents.html" class="group flex flex-col items-center">
+                    <div class="role-circle w-52 h-52 rounded-full flex items-center justify-center animate-float bg-maroon group-hover:bg-cream transition-colors">
+                        <i class="fas fa-user-friends text-6xl text-white group-hover:text-maroon"></i>
+                    </div>
+                    <span class="mt-4 text-xl font-medium text-maroon group-hover:font-bold transition-all">Parents</span>
+                </a>
+                <a href="student.html" class="group flex flex-col items-center">
+                    <div class="role-circle w-52 h-52 rounded-full flex items-center justify-center animate-float bg-cream group-hover:bg-brown transition-colors">
+                        <i class="fas fa-user-graduate text-6xl text-brown group-hover:text-cream"></i>
+                    </div>
+                    <span class="mt-4 text-xl font-medium text-brown group-hover:font-bold transition-all">Students</span>
+                </a>
+            </div>
+            <!-- Dashboard Right: smaller -->
+            <div class="bg-white rounded-xl shadow-lg p-4 max-w-md w-full">
+                <h2 class="text-xl font-bold text-brown mb-4 text-center">Admin Dashboard Preview</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+                    <div class="bg-cream p-2 rounded-lg text-center">
+                        <p class="text-xs text-gray-600">Students</p>
+                        <p class="text-lg font-bold text-brown count-up" id="students-count">0</p>
+                    </div>
+                    <div class="bg-cream p-2 rounded-lg text-center">
+                        <p class="text-xs text-gray-600">Attendance %</p>
+                        <p class="text-lg font-bold text-brown count-up" id="attendance-count">0</p>
+                    </div>
+                    <div class="bg-cream p-2 rounded-lg text-center">
+                        <p class="text-xs text-gray-600">Invoices Paid</p>
+                        <p class="text-lg font-bold text-brown count-up" id="invoices-count">0</p>
+                    </div>
+                    <div class="bg-cream p-2 rounded-lg text-center">
+                        <p class="text-xs text-gray-600">Issues</p>
+                        <p class="text-lg font-bold text-maroon count-up" id="issues-count">0</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
+                    <div class="bg-cream p-2 rounded-lg">
+                        <h3 class="text-sm font-semibold text-brown mb-2">Attendance (7 days)</h3>
+                        <div class="chart-container">
+                            <svg viewBox="0 0 300 200" class="w-full h-full">
+                                <path class="area-path" d="M0,150 C50,100 100,120 150,110 C200,100 250,130 300,120 L300,200 L0,200 Z"></path>
+                                <path class="line-path" d="M0,150 C50,100 100,120 150,110 C200,100 250,130 300,120"></path>
+                                <circle cx="0" cy="150" r="4" fill="#6B3A00" />
+                                <circle cx="50" cy="100" r="4" fill="#6B3A00" />
+                                <circle cx="100" cy="120" r="4" fill="#6B3A00" />
+                                <circle cx="150" cy="110" r="4" fill="#6B3A00" />
+                                <circle cx="200" cy="100" r="4" fill="#6B3A00" />
+                                <circle cx="250" cy="130" r="4" fill="#6B3A00" />
+                                <circle cx="300" cy="120" r="4" fill="#6B3A00" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="bg-cream p-2 rounded-lg">
+                        <h3 class="text-sm font-semibold text-brown mb-2">Fee Collection</h3>
+                        <div class="chart-container flex items-center justify-center">
+                            <svg viewBox="0 0 200 200" class="w-32 h-32">
+                                <circle cx="100" cy="100" r="85" fill="transparent" stroke="#E5E7EB" stroke-width="15" />
+                                <circle class="donut-segment" cx="100" cy="100" r="85" stroke="#6B3A00" stroke-dasharray="445, 534" transform="rotate(-90 100 100)" />
+                                <text x="100" y="100" text-anchor="middle" dy="7" font-size="16" font-weight="600" fill="#6B3A00">78%</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h3 class="text-sm font-semibold text-brown mb-2">Top 5 Overdues</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs">
+                            <thead>
+                                <tr class="bg-cream">
+                                    <th class="p-1 text-left text-brown">Student</th>
+                                    <th class="p-1 text-left text-brown">Amount</th>
+                                    <th class="p-1 text-left text-brown">Days Overdue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="p-1">A. Wijaya</td>
+                                    <td class="p-1">Rp 1,250,000</td>
+                                    <td class="p-1 text-maroon font-medium">14</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-1">B. Santoso</td>
+                                    <td class="p-1">Rp 980,000</td>
+                                    <td class="p-1 text-maroon font-medium">12</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-1">C. Hartono</td>
+                                    <td class="p-1">Rp 1,500,000</td>
+                                    <td class="p-1 text-maroon font-medium">9</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-1">D. Kusuma</td>
+                                    <td class="p-1">Rp 750,000</td>
+                                    <td class="p-1 text-maroon font-medium">7</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-1">E. Wibowo</td>
+                                    <td class="p-1">Rp 1,100,000</td>
+                                    <td class="p-1 text-maroon font-medium">5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-gold bg-opacity-10 p-2 rounded-lg border-l-4 border-gold">
+                    <h3 class="text-sm font-semibold text-brown mb-1">Announcement</h3>
+                    <p class="text-brown text-xs">Quarterly parent-teacher meetings scheduled for next week. Please check your portal for assigned time slots.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Technology in Action -->
+    <section class="py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-brown text-center mb-12">Technology in Action</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Smart Attendance -->
+                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-fingerprint text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-brown mb-3">Smart Attendance</h3>
+                    <p class="text-gray-600">RFID-based system that tracks student attendance automatically and updates parents in real-time.</p>
+                </div>
+                
+                <!-- Digital Gradebook -->
+                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-book-open text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-brown mb-3">Digital Gradebook</h3>
+                    <p class="text-gray-600">Comprehensive academic tracking with analytics and personalized feedback for each student.</p>
+                </div>
+                
+                <!-- Connected Communication -->
+                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-comments text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-brown mb-3">Connected Communication</h3>
+                    <p class="text-gray-600">Seamless messaging platform connecting teachers, parents, and administration instantly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Tagline Banner -->
+    <div class="bg-brown py-6 px-4 text-center">
+        <p class="text-gold text-lg font-medium">Empowering Education Through Digital Innovation & Smart Technology.</p>
+    </div>
+
+    <script>
+        // Count-up animation for KPI metrics
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                obj.innerHTML = id === 'attendance-count' ? value + '%' : value.toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Start animations when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            animateValue('students-count', 0, 2487, 2000);
+            animateValue('attendance-count', 0, 94, 2000);
+            animateValue('invoices-count', 0, 87, 2000);
+            animateValue('issues-count', 0, 5, 2000);
+            
+            // Add gentle pulse animation to role circles
+            const circles = document.querySelectorAll('.role-circle');
+            circles.forEach(circle => {
+                circle.classList.add('animate-pulse-slow');
+            });
+        });
+    </script>
+</body>
+</html>

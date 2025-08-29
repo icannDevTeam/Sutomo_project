@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sutomo LMS — Teachers Presentation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brown: '#6B3A00',
+            gold: '#D4AF37',
+            maroon: '#8A1538',
+            cream: '#F7F4EF',
+            ink: '#1E1E1E',
+            muted: '#6B7280',
+          },
+          borderRadius: { xl: '16px' }
+        }
+      }
+    }
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root{
+      --brown:#6B3A00; --gold:#D4AF37; --maroon:#8A1538; --cream:#F7F4EF; --ink:#1E1E1E; --muted:#6B7280;
+      --radius:16px; --shadow:0 8px 24px rgba(0,0,0,.06);
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--cream); color:var(--ink); font-family:Inter,Roboto,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial}
+    /* micro-animations */
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+    .animate-fade-in-up{animation:fadeInUp .8s ease-out forwards}
+    .delay-100{animation-delay:.1s}.delay-200{animation-delay:.2s}.delay-300{animation-delay:.3s}.delay-400{animation-delay:.4s}.delay-500{animation-delay:.5s}
+    @keyframes dashFlow{0%{background-position:0 0}100%{background-position:24px 24px}}
+    .checker{
+      background:linear-gradient(135deg,#f8f4e9 25%,#fff8e6 25%,#fff8e6 50%,#f8f4e9 50%,#f8f4e9 75%,#fff8e6 75%,#fff8e6);
+      background-size:24px 24px; animation:dashFlow 3s linear infinite;
+    }
+    .feature-card{transition:all .25s ease}
+    .feature-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(0,0,0,.08)}
+    /* custom scrollbar */
+    ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:4px}
+    
+    /* Enhanced animations */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .animate-pulse-slow {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    /* Enhanced mobile menu */
+    .mobile-menu-transition {
+      transition: all 0.3s ease;
+    }
+    
+    /* Enhanced dashboard preview */
+    .dashboard-preview {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f4e9 100%);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border: 2px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    /* Enhanced hover effects */
+    .btn-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body class="bg-cream text-ink">
+
+  <!-- Back to Cover Button -->
+  <div class="fixed top-4 left-4 z-50">
+    <a href="cover.html" class="btn-primary flex items-center space-x-2 px-4 py-2 rounded-xl font-semibold bg-gold text-brown shadow-md hover:bg-opacity-90 transition-all">
+      <i class="fas fa-arrow-left"></i>
+      <span>Back to Cover</span>
+    </a>
+  </div>
+
+  <!-- Enhanced HERO -->
+  <section class="bg-gradient-to-br from-white via-white to-gold/10 py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute top-0 right-0 w-72 h-72 bg-gold/5 rounded-full -translate-y-36 translate-x-36"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-maroon/5 rounded-full translate-y-32 -translate-x-32"></div>
+    
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
+      <div class="animate-fade-in-up">
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gold/20 text-brown mb-6 shadow-sm">
+          <i class="fas fa-star mr-2 animate-pulse-slow"></i>Presentation • Teachers
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-brown mb-6 leading-tight">
+          Empower <span class="text-gold">Teachers</span> at Sutomo
+        </h1>
+        <p class="text-muted text-lg md:text-xl mb-8 leading-relaxed">
+          A fast, intuitive workspace for planning lessons, grading, and communicating — designed by teachers, for teachers.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#features" class="inline-flex items-center px-6 py-3 rounded-xl font-semibold bg-gold text-brown hover:bg-opacity-90 btn-hover shadow-md">
+            <i class="fas fa-list-check mr-3"></i> Explore Features
+          </a>
+          <a href="#dashboard" class="inline-flex items-center px-6 py-3 rounded-xl font-semibold border-2 border-brown text-brown hover:bg-brown hover:text-white btn-hover transition-all duration-300">
+            <i class="fas fa-gauge-high mr-3"></i> View Dashboard
+          </a>
+        </div>
+      </div>
+
+      <!-- Enhanced Teacher "dashboard" preview -->
+      <div class="animate-fade-in-up delay-200 flex justify-center">
+        <div class="dashboard-preview w-full max-w-md h-96 rounded-2xl overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent"></div>
+          <div class="p-6 flex flex-col h-full">
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center">
+                <div class="w-3 h-3 rounded-full bg-red-400 mr-2"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-400 mr-2"></div>
+                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+              </div>
+              <span class="text-sm text-muted">Teacher Dashboard</span>
+            </div>
+            
+            <div class="flex-1 grid grid-cols-3 gap-3 mb-4">
+              <div class="bg-white rounded-xl p-3 shadow-sm">
+                <div class="w-8 h-8 bg-gold/20 rounded-lg flex items-center justify-center mb-2">
+                  <i class="fas fa-book text-gold"></i>
+                </div>
+                <p class="text-xs text-muted">Lessons</p>
+              </div>
+              <div class="bg-white rounded-xl p-3 shadow-sm">
+                <div class="w-8 h-8 bg-gold/20 rounded-lg flex items-center justify-center mb-2">
+                  <i class="fas fa-grade text-gold"></i>
+                </div>
+                <p class="text-xs text-muted">Grades</p>
+              </div>
+              <div class="bg-white rounded-xl p-3 shadow-sm">
+                <div class="w-8 h-8 bg-gold/20 rounded-lg flex items-center justify-center mb-2">
+                  <i class="fas fa-message text-gold"></i>
+                </div>
+                <p class="text-xs text-muted">Messages</p>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-semibold text-brown">Today's Schedule</h3>
+                <span class="text-xs text-gold bg-gold/10 px-2 py-1 rounded-full">2 upcoming</span>
+              </div>
+              <div class="space-y-2">
+                <div class="flex items-center">
+                  <div class="w-2 h-2 bg-gold rounded-full mr-2"></div>
+                  <span class="text-sm">Math - Grade 8A</span>
+                  <span class="text-xs text-muted ml-auto">09:00</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-2 h-2 bg-maroon rounded-full mr-2"></div>
+                  <span class="text-sm">Science - Grade 9B</span>
+                  <span class="text-xs text-muted ml-auto">11:30</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-4 bg-gold/10 rounded-xl p-3 text-center">
+              <p class="text-sm text-brown font-medium">
+                <i class="fas fa-lightbulb text-gold mr-2"></i> Interactive Teacher Workspace
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced PROBLEM / SOLUTION -->
+  <section id="problem" class="py-20 px-4 sm:px-6 lg:px-8 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 animate-fade-in-up">
+        <h2 class="text-3xl font-bold text-brown mb-4">Transforming Classroom Challenges</h2>
+        <p class="text-muted text-lg max-w-3xl mx-auto">From classroom realities to innovative solutions</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white p-8 rounded-2xl shadow-md border border-red-100 animate-fade-in-up relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-red-100 rounded-bl-full opacity-20"></div>
+          <h2 class="text-2xl font-bold text-brown mb-4 flex items-center">
+            <i class="fas fa-exclamation-triangle text-maroon mr-3"></i>The Classroom Reality
+          </h2>
+          <p class="text-muted mb-6">Common challenges teachers face daily:</p>
+          <div class="space-y-5 relative z-10">
+            <div class="flex gap-4 p-3 rounded-xl hover:bg-red-50 transition-all duration-300">
+              <div class="w-10 h-10 rounded-xl bg-maroon/10 text-maroon flex items-center justify-center">
+                <i class="fas fa-inbox"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-brown">Grading backlog</h3>
+                <p class="text-sm text-muted">Submissions pile up; feedback lags behind.</p>
+              </div>
+            </div>
+            <div class="flex gap-4 p-3 rounded-xl hover:bg-red-50 transition-all duration-300">
+              <div class="w-10 h-10 rounded-xl bg-maroon/10 text-maroon flex items-center justify-center">
+                <i class="fas fa-layer-group"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-brown">Fragmented tools</h3>
+                <p class="text-sm text-muted">Gradebook, assignments, and messages in different systems.</p>
+              </div>
+            </div>
+            <div class="flex gap-4 p-3 rounded-xl hover:bg-red-50 transition-all duration-300">
+              <div class="w-10 h-10 rounded-xl bg-maroon/10 text-maroon flex items-center justify-center">
+                <i class="fas fa-user-clock"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-brown">Time drain</h3>
+                <p class="text-sm text-muted">Administrative tasks consume valuable teaching time.</p>
+              </div>
+            </div>
+            <div class="flex gap-4 p-3 rounded-xl hover:bg-red-50 transition-all duration-300">
+              <div class="w-10 h-10 rounded-xl bg-maroon/10 text-maroon flex items-center justify-center">
+                <i class="fas fa-comment-slash"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-brown">Communication gaps</h3>
+                <p class="text-sm text-muted">No efficient way to communicate with parents and students.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-md border border-green-200 animate-fade-in-up delay-200 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-green-100 rounded-bl-full opacity-20"></div>
+          <h2 class="text-2xl font-bold text-brown mb-4 flex items-center">
+            <i class="fas fa-lightbulb text-gold mr-3"></i>Our Teaching Solution
+          </h2>
+          <p class="text-muted mb-6">One workspace. Fewer clicks. Better outcomes.</p>
+          <ul class="space-y-4 relative z-10">
+            <li class="flex items-start p-2 rounded-xl hover:bg-green-50 transition-all duration-300">
+              <i class="fas fa-check-circle text-gold mt-1 mr-4 text-xl"></i>
+              <span>Unified Gradebook with bulk upload and quick marking</span>
+            </li>
+            <li class="flex items-start p-2 rounded-xl hover:bg-green-50 transition-all duration-300">
+              <i class="fas fa-check-circle text-gold mt-1 mr-4 text-xl"></i>
+              <span>Assessment setup with customizable rubrics and templates</span>
+            </li>
+            <li class="flex items-start p-2 rounded-xl hover:bg-green-50 transition-all duration-300">
+              <i class="fas fa-check-circle text-gold mt-1 mr-4 text-xl"></i>
+              <span>Automated attendance tracking with smart reminders</span>
+            </li>
+            <li class="flex items-start p-2 rounded-xl hover:bg-green-50 transition-all duration-300">
+              <i class="fas fa-check-circle text-gold mt-1 mr-4 text-xl"></i>
+              <span>Targeted parent messaging with delivery confirmation</span>
+            </li>
+            <li class="flex items-start p-2 rounded-xl hover:bg-green-50 transition-all duration-300">
+              <i class="fas fa-check-circle text-gold mt-1 mr-4 text-xl"></i>
+              <span>Integrated calendar for deadlines and marking windows</span>
+            </li>
+          </ul>
+          <div class="mt-8 p-4 bg-gold/10 rounded-xl border border-gold/30">
+            <p class="text-sm text-brown font-medium flex items-center">
+              <i class="fas fa-bolt text-gold mr-3 text-lg"></i> 
+              Designed for "check, check, done" workflows that match how teachers actually work
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced FEATURES -->
+  <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 animate-fade-in-up">
+        <h2 class="text-3xl font-bold text-brown mb-4">Teacher-Centric Features</h2>
+        <p class="text-muted text-lg max-w-3xl mx-auto">Everything needed for effective teaching — streamlined and intuitive</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 animate-fade-in-up delay-100 group">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4 group-hover:bg-gold group-hover:text-white transition-all duration-300">
+            <i class="fas fa-book-open text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-2">Gradebook / Scores</h3>
+          <p class="text-muted">Bulk CSV import, quick marks, late flags, and publish in one click with advanced analytics.</p>
+        </div>
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 animate-fade-in-up delay-200 group">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4 group-hover:bg-gold group-hover:text-white transition-all duration-300">
+            <i class="fas fa-file-certificate text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-2">Report Cards</h3>
+          <p class="text-muted">Custom templates by division; auto-calculation & comment banks; instant portal publishing.</p>
+        </div>
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 animate-fade-in-up delay-300 group">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4 group-hover:bg-gold group-hover:text-white transition-all duration-300">
+            <i class="fas fa-tasks text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-2">Assessments & Rubrics</h3>
+          <p class="text-muted">Create assignments/exams, attach rubrics, collect submissions and grade efficiently.</p>
+        </div>
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 animate-fade-in-up delay-400 group">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4 group-hover:bg-gold group-hover:text-white transition-all duration-300">
+            <i class="fas fa-calendar-check text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-2">Calendar & Deadlines</h3>
+          <p class="text-muted">Marking windows, due dates, proctoring slots — all in one unified calendar view.</p>
+        </div>
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 animate-fade-in-up delay-500 group">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4 group-hover:bg-gold group-hover:text-white transition-all duration-300">
+            <i class="fas fa-briefcase text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-2">Workload Management</h3>
+          <p class="text-muted">Classes, contact hours, grading distribution, and schedule conflicts visualization.</p>
+        </div>
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 animate-fade-in-up group">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4 group-hover:bg-gold group-hover:text-white transition-all duration-300">
+            <i class="fas fa-message text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-2">Parent Communication</h3>
+          <p class="text-muted">Target by class/grade; WhatsApp/Email integration; read receipts & detailed logs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced DASHBOARD PLACEHOLDERS -->
+  <section id="dashboard" class="py-20 px-4 sm:px-6 lg:px-8 bg-cream">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 animate-fade-in-up">
+        <h2 class="text-3xl font-bold text-brown mb-4">Interactive Teacher Dashboard</h2>
+        <p class="text-muted text-lg">Designed for efficiency and ease of use</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 animate-fade-in-up delay-200">
+        <div class="md:col-span-2 bg-white p-6 rounded-2xl shadow-md">
+          <h3 class="text-xl font-bold text-brown mb-4 flex items-center">
+            <i class="fas fa-window-maximize text-gold mr-3"></i>Workspace Interface
+          </h3>
+          <div class="h-80 rounded-xl border-2 border-dashed border-gold/60 checker flex items-center justify-center group hover:border-gold transition-all duration-300">
+            <div class="text-center p-6">
+              <i class="fas fa-window-restore text-4xl text-gold mb-3 group-hover:scale-110 transition-transform duration-300"></i>
+              <p class="font-semibold text-brown">Insert Teacher Dashboard Design</p>
+              <p class="text-sm text-muted mt-2">Drag & drop your Figma frame here</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-md">
+          <h3 class="text-xl font-bold text-brown mb-4 flex items-center">
+            <i class="fas fa-table-cells text-gold mr-3"></i>Key Widgets
+          </h3>
+          <div class="h-56 rounded-xl border-2 border-dashed border-gold/60 checker flex items-center justify-center mb-4 group hover:border-gold transition-all duration-300">
+            <div class="text-center">
+              <i class="fas fa-table-list text-3xl text-gold mb-2 group-hover:scale-110 transition-transform duration-300"></i>
+              <p class="font-semibold text-brown text-sm">Gradebook Overview</p>
+            </div>
+          </div>
+          <div class="h-40 rounded-xl border-2 border-dashed border-gold/60 checker flex items-center justify-center group hover:border-gold transition-all duration-300">
+            <div class="text-center">
+              <i class="fas fa-comments text-3xl text-gold mb-2 group-hover:scale-110 transition-transform duration-300"></i>
+              <p class="font-semibold text-brown text-sm">Communication Panel</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced NAV-ONLY HINTS -->
+  <section id="hints" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-gold animate-fade-in-up hover:shadow-lg transition-all duration-300">
+        <div class="w-10 h-10 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4">
+          <i class="fas fa-cog"></i>
+        </div>
+        <h4 class="text-xl font-bold text-brown mb-2">Administration</h4>
+        <p class="text-muted">Complete enrollment management, attendance tracking, fee processing, and comprehensive reporting tools.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-gold animate-fade-in-up delay-200 hover:shadow-lg transition-all duration-300">
+        <div class="w-10 h-10 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4">
+          <i class="fas fa-users"></i>
+        </div>
+        <h4 class="text-xl font-bold text-brown mb-2">Parents Portal</h4>
+        <p class="text-muted">Real-time grades, attendance monitoring, invoice management, and PTC booking with confirmation system.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-gold animate-fade-in-up delay-300 hover:shadow-lg transition-all duration-300">
+        <div class="w-10 h-10 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <h4 class="text-xl font-bold text-brown mb-2">Student Dashboard</h4>
+        <p class="text-muted">Interactive timetable, weekly assignments, feedback stream, and school announcements in one place.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced FOOTER -->
+  <footer class="py-12 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-9 h-9 rounded-full bg-gold flex items-center justify-center shadow-md">
+              <i class="fas fa-chalkboard-teacher text-brown text-lg"></i>
+            </div>
+            <span class="font-bold text-xl text-brown">Sutomo LMS</span>
+          </div>
+          <p class="text-muted text-sm">Empowering educators with intuitive tools for better teaching experiences.</p>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-brown mb-4">Quick Links</h4>
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <a href="#teachers" class="text-muted hover:text-brown transition-colors duration-300">Teachers</a>
+            <a href="#admin" class="text-muted hover:text-brown transition-colors duration-300">Administration</a>
+            <a href="#parents" class="text-muted hover:text-brown transition-colors duration-300">Parents</a>
+            <a href="#students" class="text-muted hover:text-brown transition-colors duration-300">Students</a>
+            <a href="#features" class="text-muted hover:text-brown transition-colors duration-300">Features</a>
+            <a href="#contact" class="text-muted hover:text-brown transition-colors duration-300">Get Started</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-brown mb-4">Brand Colors</h4>
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <span class="inline-flex items-center">
+              <span class="inline-block w-4 h-4 rounded-full bg-brown mr-2"></span> Brown #6B3A00
+            </span>
+            <span class="inline-flex items-center">
+              <span class="inline-block w-4 h-4 rounded-full bg-gold mr-2"></span> Gold #D4AF37
+            </span>
+            <span class="inline-flex items-center">
+              <span class="inline-block w-4 h-4 rounded-full bg-maroon mr-2"></span> Maroon #8A1538
+            </span>
+            <span class="inline-flex items-center">
+              <span class="inline-block w-4 h-4 rounded-full bg-cream mr-2 border border-gray-300"></span> Cream #F7F4EF
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pt-8 border-t border-gray-200 text-center">
+        <p class="text-sm text-muted">© 2023 Sutomo LMS — Teacher Presentation</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Enhanced mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+    
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('mobile-menu');
+      const btn = document.getElementById('mobile-menu-button');
+      if (!menu.contains(e.target) && !btn.contains(e.target) && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    // Enhanced reveal on scroll with better performance
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in-up');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('section, .feature-card').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Enhanced KPI counters with smoother animation
+    function animateCounter(id, end, suffix = '', duration = 2000) {
+      const element = document.getElementById(id);
+      let start = 0;
+      const increment = Math.ceil(end / (duration / 16));
+      const step = Math.max(1, increment);
+      
+      const timer = setInterval(() => {
+        start += step;
+        if (start >= end) {
+          start = end;
+          clearInterval(timer);
+        }
+        element.textContent = start.toLocaleString() + suffix;
+      }, 16);
+    }
+
+    // Start counters when in view
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter('kpi-lessons', 42);
+          animateCounter('kpi-graded', 260);
+          animateCounter('kpi-feedback', 92, '%');
+          animateCounter('kpi-msg', 58);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const kpiSection = document.querySelector('.bg-gradient-to-br');
+    if (kpiSection) {
+      counterObserver.observe(kpiSection);
+    }
+
+    // Enhanced keyboard search functionality
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black/50 grid place-items-center z-50 backdrop-blur-sm';
+        modal.innerHTML = `
+          <div class="bg-white rounded-2xl p-6 w-full max-w-md mx-4 shadow-2xl transform transition-all duration-300 scale-95 animate-fade-in-up">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-brown flex items-center">
+                <i class="fas fa-search text-gold mr-2"></i>Global Search (Teacher)
+              </h3>
+              <button class="text-gray-500 hover:text-brown transition-colors duration-300" id="close-search">
+                <i class="fas fa-times text-lg"></i>
+              </button>
+            </div>
+            <div class="relative">
+              <input type="text" placeholder="Search lessons, classes, assignments..." 
+                     class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold transition-all duration-300">
+              <i class="fas fa-search absolute right-3 top-3.5 text-gray-400"></i>
+            </div>
+            <div class="mt-4 p-3 bg-gold/5 rounded-xl">
+              <p class="text-sm text-muted flex items-center">
+                <i class="fas fa-lightbulb text-gold mr-2"></i>
+                Quick actions: Create assignment, Mark roll, Message class
+              </p>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        modal.querySelector('input').focus();
+        
+        const closeModal = () => modal.remove();
+        
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
+        });
+        
+        modal.querySelector('#close-search').addEventListener('click', closeModal);
+        
+        // Close with Escape key
+        const handleEscape = (e) => {
+          if (e.key === 'Escape') closeModal();
+        };
+        
+        document.addEventListener('keydown', handleEscape);
+        modal._handleEscape = handleEscape;
+      }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

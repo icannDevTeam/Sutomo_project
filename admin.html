@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sutomo LMS — Administration Presentation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brown: '#6B3A00',
+            gold: '#D4AF37',
+            maroon: '#8A1538',
+            cream: '#F7F4EF',
+            ink: '#1E1E1E',
+            muted: '#6B7280',
+          },
+          borderRadius: {
+            xl: '16px',
+          },
+        }
+      }
+    }
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root{
+      --brown:#6B3A00;
+      --gold:#D4AF37;
+      --maroon:#8A1538;
+      --cream:#F7F4EF;
+      --ink:#1E1E1E;
+      --muted:#6B7280;
+      --radius:16px;
+      --shadow:0 8px 24px rgba(0,0,0,.06);
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Roboto', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+    }
+    
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    /* Custom animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+    
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    .animate-pulse-slow {
+      animation: pulse 3s infinite;
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .animate-shimmer {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 1000px 100%;
+      animation: shimmer 2s infinite linear;
+    }
+    
+    .delay-100 {
+      animation-delay: 0.1s;
+    }
+    
+    .delay-200 {
+      animation-delay: 0.2s;
+    }
+    
+    .delay-300 {
+      animation-delay: 0.3s;
+    }
+    
+    .delay-400 {
+      animation-delay: 0.4s;
+    }
+    
+    .delay-500 {
+      animation-delay: 0.5s;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 4px;
+    }
+    
+    /* Mobile menu animation */
+    .mobile-menu {
+      transition: all 0.3s ease;
+    }
+    
+    /* Feature card hover effect */
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    
+    /* Dashboard mockup animation */
+    .dashboard-mock {
+      background: linear-gradient(135deg, #f8f4e9 25%, #fff8e6 25%, #fff8e6 50%, #f8f4e9 50%, #f8f4e9 75%, #fff8e6 75%, #fff8e6);
+      background-size: 20px 20px;
+      animation: move 3s linear infinite;
+    }
+    
+    @keyframes move {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 20px 20px;
+      }
+    }
+    
+    /* Progress bar animation */
+    .progress-bar {
+      animation: progress 1.5s ease-in-out forwards;
+    }
+    
+    @keyframes progress {
+      from {
+        width: 0%;
+      }
+    }
+    
+    /* Stats counter animation */
+    .counter {
+      animation: countUp 2s ease-out forwards;
+    }
+    
+    @keyframes countUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Interactive elements */
+    .interactive-card {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .interactive-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .interactive-card:hover::before {
+      left: 100%;
+    }
+  </style>
+</head>
+<body class="bg-cream text-ink">
+  <!-- Back to Cover Button -->
+<div class="fixed top-4 left-4 z-50">
+  <a href="cover.html" class="btn-primary flex items-center space-x-2 px-4 py-2 rounded-xl font-semibold bg-gold text-brown shadow-md hover:bg-opacity-90 transition-all">
+    <i class="fas fa-arrow-left"></i>
+    <span>Back to Cover</span>
+  </a>
+</div>
+  
+  <!-- HERO SECTION -->
+  <section class="bg-gradient-to-br from-white via-white to-gold/10 py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative">
+      <!-- Floating decorative elements -->
+      <div class="absolute top-10 left-10 w-6 h-6 rounded-full bg-gold/20 animate-float delay-300 hidden md:block"></div>
+      <div class="absolute bottom-20 right-20 w-8 h-8 rounded-full bg-maroon/15 animate-float delay-500 hidden md:block"></div>
+      <div class="absolute top-1/3 right-1/4 w-4 h-4 rounded-full bg-brown/10 animate-float hidden md:block"></div>
+      
+      <div class="animate-fade-in-up z-10">
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gold/20 text-brown mb-6 shadow-sm">
+          <i class="fas fa-presentation-screen mr-2"></i>
+          Presentation • Website Style
+        </span>
+        <h1 class="text-4xl md:text-5xl font-bold text-brown mb-6 leading-tight">Reimagining School Administration at Sutomo</h1>
+        <p class="text-muted text-lg mb-8">A clean, intuitive LMS that cuts clicks, reduces chaos, and puts actionable data in front of the people who run the school every day.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#admin" class="inline-flex items-center px-6 py-3 rounded-xl font-semibold bg-gold text-brown hover:bg-opacity-90 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+            <i class="fas fa-compass mr-2"></i> Explore Admin
+          </a>
+          <a href="#features" class="inline-flex items-center px-6 py-3 rounded-xl font-semibold border-2 border-brown text-brown hover:bg-brown hover:text-white transition-colors duration-200 shadow-sm hover:shadow-md">
+            <i class="fas fa-list mr-2"></i> See Features
+          </a>
+        </div>
+      </div>
+      <div class="animate-fade-in-up delay-200 flex justify-center relative">
+        <div class="w-full max-w-md h-80 bg-white rounded-2xl shadow-lg border-2 border-dashed border-gold/60 overflow-hidden dashboard-mock flex items-center justify-center relative">
+          <div class="absolute -top-3 -right-3 w-6 h-6 rounded-full bg-gold flex items-center justify-center">
+            <i class="fas fa-plus text-xs text-white"></i>
+          </div>
+          <div class="text-center p-6">
+            <i class="fas fa-tachometer-alt text-5xl text-gold mb-4 animate-pulse-slow"></i>
+            <p class="font-bold text-brown">Admin Dashboard Preview</p>
+            <p class="text-sm text-muted mt-2">Interactive and data-rich interface</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- PROBLEM SECTION -->
+  <section id="problem" class="py-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
+      <div class="bg-white p-8 rounded-2xl shadow-md border-l-4 border-orange-400 animate-fade-in-up interactive-card">
+        <h2 class="text-2xl font-bold text-brown mb-4 flex items-center">
+          <i class="fas fa-exclamation-triangle text-orange-400 mr-3"></i>
+          The Challenge
+        </h2>
+        <p class="text-muted mb-8">What administrators tell us—same story, different campuses.</p>
+        
+        <div class="space-y-6">
+          <div class="flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-xl bg-maroon/10 flex items-center justify-center text-maroon mt-1 flex-shrink-0">
+              <i class="fas fa-folder-open"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-brown">Fragmented data</h3>
+              <p class="text-muted text-sm">Student info lives in five places and none are up to date.</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-xl bg-maroon/10 flex items-center justify-center text-maroon mt-1 flex-shrink-0">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-brown">Manual grind</h3>
+              <p class="text-muted text-sm">Attendance tallies, fee follow-ups, and paper consents burn hours.</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-xl bg-maroon/10 flex items-center justify-center text-maroon mt-1 flex-shrink-0">
+              <i class="fas fa-bullhorn"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-brown">Slow communication</h3>
+              <p class="text-muted text-sm">Announcements miss people; no read receipts or targeting.</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-xl bg-maroon/10 flex items-center justify-center text-maroon mt-1 flex-shrink-0">
+              <i class="fas fa-map-signs"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-brown">Complex workflows</h3>
+              <p class="text-muted text-sm">Too many steps, too many clicks, not enough clarity.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-8 rounded-2xl shadow-md border-l-4 border-green-400 animate-fade-in-up delay-200 interactive-card">
+        <h2 class="text-2xl font-bold text-brown mb-4 flex items-center">
+          <i class="fas fa-lightbulb text-green-400 mr-3"></i>
+          Our Approach
+        </h2>
+        <p class="text-muted mb-8">Checklists, clear statuses, and one search bar that finds everything. If it takes more than three clicks, we redesign it.</p>
+        
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-gold mt-1 mr-3"></i>
+            <span>One SIS of record with audit trail</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-gold mt-1 mr-3"></i>
+            <span>Checklist flows for enrollment, attendance, fees</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-gold mt-1 mr-3"></i>
+            <span>Targeted comms with delivery/read logs</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-gold mt-1 mr-3"></i>
+            <span>Role-based access with SSO/2FA</span>
+          </li>
+        </ul>
+        
+        <div class="mt-8 p-4 bg-gold/10 rounded-xl border border-gold/30">
+          <p class="text-sm text-brown font-medium"><i class="fas fa-lightbulb text-gold mr-2"></i> We focus on reducing cognitive load and eliminating friction in daily tasks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SOLUTION SUMMARY -->
+  <section id="admin" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12 animate-fade-in-up">
+        <h2 class="text-3xl font-bold text-brown mb-4">Administration — Solution Overview</h2>
+        <p class="text-muted text-lg max-w-3xl mx-auto">Built for speed and certainty. Surface what matters. Hide what doesn't.</p>
+      </div>
+      
+      <div id="features" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Feature 1 -->
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 transition-all duration-300 animate-fade-in-up delay-100 interactive-card">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center text-gold mb-4">
+            <i class="fas fa-database text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-3">SIS / Master Data</h3>
+          <p class="text-muted">Single source of truth for students & staff. Search, edit, audit. CSV in/out with validation.</p>
+          <div class="mt-4 h-1 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full bg-gold progress-bar" style="width: 95%"></div>
+          </div>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 transition-all duration-300 animate-fade-in-up delay-200 interactive-card">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center text-gold mb-4">
+            <i class="fas fa-user-check text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-3">Attendance Management</h3>
+          <p class="text-muted">Class marking by teachers; admin sees live % and exceptions. One-click reminders.</p>
+          <div class="mt-4 h-1 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full bg-gold progress-bar" style="width: 88%"></div>
+          </div>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 transition-all duration-300 animate-fade-in-up delay-300 interactive-card">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center text-gold mb-4">
+            <i class="fas fa-credit-card text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-3">Finance (Invoices & Payments)</h3>
+          <p class="text-muted">Issue, track, remind. Aging snapshot and monthly collection trends.</p>
+          <div class="mt-4 h-1 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full bg-gold progress-bar" style="width: 92%"></div>
+          </div>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 transition-all duration-300 animate-fade-in-up delay-400 interactive-card">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center text-gold mb-4">
+            <i class="fas fa-calendar-alt text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-3">Scheduling & Timetabling</h3>
+          <p class="text-muted">Conflict-aware grid; swap teachers/rooms; publish changes with notices.</p>
+          <div class="mt-4 h-1 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full bg-gold progress-bar" style="width: 85%"></div>
+          </div>
+        </div>
+        
+        <!-- Feature 5 -->
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 transition-all duration-300 animate-fade-in-up delay-500 interactive-card">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center text-gold mb-4">
+            <i class="fas fa-file-contract text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-3">Documents & Consents</h3>
+          <p class="text-muted">Secure uploads; expiry alerts; bulk reminders with merge tags.</p>
+          <div class="mt-4 h-1 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full bg-gold progress-bar" style="width: 90%"></div>
+          </div>
+        </div>
+        
+        <!-- Feature 6 -->
+        <div class="feature-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-gold/30 transition-all duration-300 animate-fade-in-up interactive-card">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center text-gold mb-4">
+            <i class="fas fa-user-clock text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brown mb-3">Visitor & Staff Attendance</h3>
+          <p class="text-muted">Live on-campus view; overstay flags; exports for security.</p>
+          <div class="mt-4 h-1 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full bg-gold progress-bar" style="width: 87%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- DASHBOARD PLACEHOLDERS -->
+  <section id="dashboard" class="py-20 px-4 sm:px-6 lg:px-8 bg-cream">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12 animate-fade-in-up">
+        <h2 class="text-3xl font-bold text-brown mb-4">Admin Dashboard — Design Placeholders</h2>
+        <p class="text-muted text-lg">Drop your high-fidelity screenshots or Figma embeds inside these frames.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-6 animate-fade-in-up delay-200">
+        <div class="md:col-span-2 bg-white p-6 rounded-2xl shadow-md">
+          <h3 class="text-xl font-bold text-brown mb-4 flex items-center">
+            <i class="fas fa-desktop text-gold mr-3"></i>
+            Main Dashboard Frame
+          </h3>
+          <div class="h-80 rounded-xl border-2 border-dashed border-gold/60 dashboard-mock flex items-center justify-center">
+            <div class="text-center p-4">
+              <i class="fas fa-image text-4xl text-gold mb-3"></i>
+              <p class="font-semibold text-brown">Insert Admin Dashboard Screenshot Here</p>
+              <p class="text-xs text-muted mt-2">Drag & drop or click to upload</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-2xl shadow-md">
+          <h3 class="text-xl font-bold text-brown mb-4 flex items-center">
+            <i class="fas fa-chart-pie text-gold mr-3"></i>
+            Detail Panel / Secondary Widget
+          </h3>
+          <div class="h-56 rounded-xl border-2 border-dashed border-gold/60 dashboard-mock flex items-center justify-center mb-4">
+            <div class="text-center p-4">
+              <i class="fas fa-chart-pie text-3xl text-gold mb-2"></i>
+              <p class="font-semibold text-brown text-sm">Insert Finance / Attendance Widget</p>
+            </div>
+          </div>
+          <div class="h-40 rounded-xl border-2 border-dashed border-gold/60 dashboard-mock flex items-center justify-center">
+            <div class="text-center p-4">
+              <i class="fas fa-exclamation-triangle text-3xl text-gold mb-2"></i>
+              <p class="font-semibold text-brown text-sm">Insert Exceptions Table</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- NAV-ONLY SECTIONS -->
+  <section id="teachers" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-maroon animate-fade-in-up interactive-card">
+        <h4 class="text-xl font-bold text-brown mb-3 flex items-center">
+          <i class="fas fa-chalkboard-teacher text-maroon mr-3"></i>
+          Teachers — Navigation Only
+        </h4>
+        <p class="text-muted">Gradebook, assignments, feedback, and parent updates. (Presentation focus remains on Administration.)</p>
+        <div class="mt-4 flex items-center text-sm text-maroon">
+          <i class="fas fa-arrow-right mr-2"></i>
+          <span>Focused on teaching workflow optimization</span>
+        </div>
+      </div>
+      
+      <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-maroon animate-fade-in-up delay-200 interactive-card">
+        <h4 class="text-xl font-bold text-brown mb-3 flex items-center">
+          <i class="fas fa-users text-maroon mr-3"></i>
+          Parents — Navigation Only
+        </h4>
+        <p class="text-muted">Attendance, grades, invoices, and PTC booking with read receipts.</p>
+        <div class="mt-4 flex items-center text-sm text-maroon">
+          <i class="fas fa-arrow-right mr-2"></i>
+          <span>Designed for transparency and engagement</span>
+        </div>
+      </div>
+      
+      <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-maroon animate-fade-in-up delay-300 interactive-card">
+        <h4 class="text-xl font-bold text-brown mb-3 flex items-center">
+          <i class="fas fa-user-graduate text-maroon mr-3"></i>
+          Students — Navigation Only
+        </h4>
+        <p class="text-muted">What's due this week, feedback stream, timetable, and announcements.</p>
+        <div class="mt-4 flex items-center text-sm text-maroon">
+          <i class="fas fa-arrow-right mr-2"></i>
+          <span>Built to support student success and organization</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <footer class="py-8 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="text-sm text-muted">© Sutomo — LMS Presentation</div>
+      <div class="text-sm text-muted flex flex-wrap items-center gap-4">
+        <span>Brand Colors:</span>
+        <span class="inline-flex items-center"><span class="inline-block w-3 h-3 rounded-full bg-brown mr-1"></span> Brown #6B3A00</span>
+        <span class="inline-flex items-center"><span class="inline-block w-3 h-3 rounded-full bg-gold mr-1"></span> Gold #D4AF37</span>
+        <span class="inline-flex items-center"><span class="inline-block w-3 h-3 rounded-full bg-maroon mr-1"></span> Maroon #8A1538</span>
+        <span class="inline-flex items-center"><span class="inline-block w-3 h-3 rounded-full bg-cream mr-1 border border-gray-300"></span> Cream #F7F4EF</span>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('mobile-menu');
+      const button = document.getElementById('mobile-menu-button');
+      
+      if (!menu.contains(event.target) && !button.contains(event.target) && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+      }
+    });
+    
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in-up');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+    
+    // Animate progress bars when in view
+    const progressObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const progressBar = entry.target;
+          progressBar.style.animation = 'progress 1.5s ease-in-out forwards';
+          progressObserver.unobserve(progressBar);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    document.querySelectorAll('.progress-bar').forEach(bar => {
+      progressObserver.observe(bar);
+    });
+    
+    // Animate counters
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const target = parseInt(counter.textContent.replace('%', ''));
+      let count = 0;
+      const duration = 2000; // ms
+      const increment = target / (duration / 16);
+      
+      const updateCount = () => {
+        if (count < target) {
+          count += increment;
+          counter.textContent = Math.ceil(count) + (counter.textContent.includes('%') ? '%' : '');
+          requestAnimationFrame(updateCount);
+        } else {
+          counter.textContent = target + (counter.textContent.includes('%') ? '%' : '');
+        }
+      };
+      
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            updateCount();
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      counterObserver.observe(counter);
+    });
+    
+    // Keyboard shortcut for search
+    window.addEventListener('keydown', function(e) {
+      if (e.key === '/') {
+        e.preventDefault();
+        // Create a modal for search
+        const searchModal = document.createElement('div');
+        searchModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        searchModal.innerHTML = `
+          <div class="bg-white rounded-2xl p-6 w-full max-w-md mx-4 animate-fade-in-up">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-brown">Global Search</h3>
+              <button class="text-gray-500 hover:text-brown transition-colors duration-200" id="close-search">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="relative">
+              <input type="text" placeholder="Search across the platform..." class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold">
+              <i class="fas fa-search absolute right-3 top-3.5 text-gray-400"></i>
+            </div>
+            <p class="text-sm text-muted mt-4">Coming soon with predictive suggestions and quick actions.</p>
+          </div>
+        `;
+        
+        document.body.appendChild(searchModal);
+        
+        // Close modal functionality
+        document.getElementById('close-search').addEventListener('click', function() {
+          document.body.removeChild(searchModal);
+        });
+        
+        searchModal.addEventListener('click', function(e) {
+          if (e.target === searchModal) {
+            document.body.removeChild(searchModal);
+          }
+        });
+      }
+    });
+    
+    // Add hover effect to all interactive cards
+    document.querySelectorAll('.interactive-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-5px)';
+        card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.1)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0)';
+        card.style.boxShadow = '0 8px 24px rgba(0,0,0,0.06)';
+      });
+    });
+  </script>
+</body>
+</html>
