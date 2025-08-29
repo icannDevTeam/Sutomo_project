@@ -552,41 +552,40 @@
   </footer>
   
   <script>
-    // Mobile menu toggle
-    document.getElementById('mobile-menu-button').addEventListener('click', function() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
-    });
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-      const menu = document.getElementById('mobile-menu');
-      const button = document.getElementById('mobile-menu-button');
-      
-      if (!menu.contains(event.target) && !button.contains(event.target) && !menu.classList.contains('hidden')) {
-        menu.classList.add('hidden');
-      }
-    });
-    
-    // Intersection Observer for fade-in animations
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in-up');
-          observer.unobserve(entry.target);
+    // Fetch admin notifications
+    fetch('http://127.0.0.1:8000/admin/notifications')
+      .then(res => res.json())
+      .then(data => {
+        if (data.notifications && data.notifications.length > 0) {
+          const toast = document.getElementById('toastContainer');
+          if (toast) {
+            toast.innerHTML = `<div class='toast bg-gold text-brown px-6 py-3 rounded-lg shadow-lg mb-2'>${data.notifications[0].message}</div>`;
+            setTimeout(() => { toast.innerHTML = ''; }, 3000);
+          }
         }
       });
-    }, observerOptions);
-    
-    document.querySelectorAll('section').forEach(section => {
-      observer.observe(section);
-    });
+
+    // Admin chat wiring (demo)
+    const chatInput = document.querySelector('input[placeholder^="Type a message"]');
+    const chatSendBtn = chatInput && chatInput.nextElementSibling;
+    if (chatSendBtn) {
+      chatSendBtn.addEventListener('click', function() {
+        fetch('http://127.0.0.1:8000/admin/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user: 'Admin', message: chatInput.value })
+        })
+        .then(res => res.json())
+        .then(data => {
+          // Display response (demo)
+          const msgDiv = document.createElement('div');
+          msgDiv.className = 'chat-bubble bot-bubble';
+          msgDiv.textContent = data.response;
+          chatInput.parentElement.appendChild(msgDiv);
+          chatInput.value = '';
+        });
+      });
+    }
     
     // Animate progress bars when in view
     const progressObserver = new IntersectionObserver((entries) => {

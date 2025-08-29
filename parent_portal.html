@@ -636,6 +636,41 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Fetch parent notifications
+            fetch('http://127.0.0.1:8000/parent/notifications')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.notifications && data.notifications.length > 0) {
+                        const toast = document.getElementById('toastContainer');
+                        if (toast) {
+                            toast.innerHTML = `<div class='toast bg-gold text-brown px-6 py-3 rounded-lg shadow-lg mb-2'>${data.notifications[0].message}</div>`;
+                            setTimeout(() => { toast.innerHTML = ''; }, 3000);
+                        }
+                    }
+                });
+
+            // Parent chat wiring
+            var chatSheet = document.getElementById('chatSheet');
+            const chatInput = chatSheet ? chatSheet.querySelector('input[placeholder^="Ask about"]') : null;
+            const chatSendBtn = chatInput && chatInput.nextElementSibling;
+            if (chatSendBtn) {
+                chatSendBtn.addEventListener('click', function() {
+                    fetch('http://127.0.0.1:8000/parent/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ user: 'Parent', message: chatInput.value })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        // Display response (demo)
+                        const msgDiv = document.createElement('div');
+                        msgDiv.className = 'chat-bubble bot-bubble';
+                        msgDiv.textContent = data.response;
+                        chatSheet.appendChild(msgDiv);
+                        chatInput.value = '';
+                    });
+                });
+            }
             // Animation for count-up elements
             const countUps = document.querySelectorAll('.count-up');
             countUps.forEach(el => {

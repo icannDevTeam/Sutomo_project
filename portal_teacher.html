@@ -551,21 +551,9 @@
                     </div>
                     <button id="sendAnnouncement" class="bg-gold hover:bg-brown text-white px-4 py-2 rounded-lg font-medium transition-colors w-full">Send Announcement</button>
                 </div>
-                
                 <div class="mt-6">
                     <h4 class="font-bold text-brown mb-3">Recent Announcements</h4>
-                    <div class="space-y-3">
-                        <div class="border rounded-lg p-3">
-                            <h5 class="font-medium">Policy Update</h5>
-                            <p class="text-sm text-gray-600">Please review the updated exam integrity policy in the staff portal.</p>
-                            <p class="text-xs text-gray-500 mt-1">2 hours ago</p>
-                        </div>
-                        <div class="border rounded-lg p-3">
-                            <h5 class="font-medium">Exam Integrity Reminder</h5>
-                            <p class="text-sm text-gray-600">Reminder to all teachers about maintaining exam integrity during midterms.</p>
-                            <p class="text-xs text-gray-500 mt-1">Yesterday</p>
-                        </div>
-                    </div>
+                    <div class="space-y-3" id="announcementList"></div>
                 </div>
             </div>
         </div>
@@ -574,34 +562,9 @@
         <div class="col-span-12 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold text-brown">Upcoming School Events</h3>
-                <button class="text-gold hover:underline">View Calendar</button>
+                <button class="text-gold hover:underline" id="viewCalendar">View Calendar</button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="border rounded-lg p-4">
-                    <div class="bg-maroon text-white text-center py-1 rounded text-sm mb-3">Sep 12</div>
-                    <h4 class="font-medium mb-2">Science Fair</h4>
-                    <p class="text-sm text-gray-600">Annual science fair exhibition</p>
-                    <button class="text-gold hover:underline text-sm mt-2">Add to Calendar</button>
-                </div>
-                <div class="border rounded-lg p-4">
-                    <div class="bg-gold text-white text-center py-1 rounded text-sm mb-3">Sep 20</div>
-                    <h4 class="font-medium mb-2">Sports Day</h4>
-                    <p class="text-sm text-gray-600">Inter-house sports competition</p>
-                    <button class="text-gold hover:underline text-sm mt-2">Add to Calendar</button>
-                </div>
-                <div class="border rounded-lg p-4">
-                    <div class="bg-brown text-white text-center py-1 rounded text-sm mb-3">Sep 25</div>
-                    <h4 class="font-medium mb-2">Language Week</h4>
-                    <p class="text-sm text-gray-600">Cultural and language activities</p>
-                    <button class="text-gold hover:underline text-sm mt-2">Add to Calendar</button>
-                </div>
-                <div class="border rounded-lg p-4">
-                    <div class="bg-green-600 text-white text-center py-1 rounded text-sm mb-3">Oct 5</div>
-                    <h4 class="font-medium mb-2">Parent-Teacher Conference</h4>
-                    <p class="text-sm text-gray-600">Term 1 progress discussions</p>
-                    <button class="text-gold hover:underline text-sm mt-2">Add to Calendar</button>
-                </div>
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="eventList"></div>
         </div>
 
         <!-- Row 6: Student Progress & Reports -->

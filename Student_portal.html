@@ -673,6 +673,60 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Fetch notifications from FastAPI backend
+            fetch('http://127.0.0.1:8000/notifications')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.notifications && data.notifications.length > 0) {
+                        const toast = document.getElementById('toast');
+                        toast.textContent = data.notifications[0].message;
+                        toast.classList.remove('translate-x-full');
+                        setTimeout(() => {
+                            toast.classList.add('translate-x-full');
+                        }, 3000);
+                    }
+                });
+
+            // AI Chat wiring
+            const chatInput = document.querySelector('input[placeholder^="Ask me anything"]');
+            const chatSendBtn = chatInput && chatInput.nextElementSibling;
+            const chatContainer = document.getElementById('chatContainer');
+
+            function sendChatMessage() {
+                const message = chatInput.value.trim();
+                if (!message) return;
+                // Show user message
+                const userMsg = document.createElement('div');
+                userMsg.className = 'chat-bubble user-bubble';
+                userMsg.textContent = message;
+                chatContainer.appendChild(userMsg);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                chatInput.value = '';
+                // Show typing indicator
+                typingIndicator.style.display = 'flex';
+                // Send to FastAPI backend
+                fetch('http://127.0.0.1:8000/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user: 'Chen', message })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    typingIndicator.style.display = 'none';
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'chat-bubble bot-bubble';
+                    botMsg.textContent = data.response;
+                    chatContainer.appendChild(botMsg);
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                });
+            }
+
+            if (chatSendBtn) {
+                chatSendBtn.addEventListener('click', sendChatMessage);
+                chatInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') sendChatMessage();
+                });
+            }
             // Counter animation
             function animateValue(id, start, end, duration) {
                 const obj = document.getElementById(id);
