@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sutomo LMS - Parents</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brown: '#6B3A00',
+                        gold: '#D4AF37',
+                        maroon: '#8A1538',
+                        cream: '#F7F4EF',
+                        white: '#FFFFFF'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    borderRadius: {
+                        'xl': '16px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7F4EF;
+        }
+        .custom-shadow {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+        .donut-chart {
+            transform: rotate(-90deg);
+        }
+        .count-up {
+            transition: all 1s ease-out;
+        }
+        .toast {
+            animation: slideIn 0.3s ease-out, fadeOut 0.5s ease-in 2.5s forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; visibility: hidden; }
+        }
+        .chat-sheet {
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+        }
+        .chat-sheet.open {
+            transform: translateY(0);
+        }
+        .focus-gold:focus {
+            outline: 2px solid #D4AF37;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Top Bar -->
+    <header class="sticky top-0 z-50 bg-white custom-shadow py-3 px-4 md:px-6 flex items-center justify-between">
+        <div class="flex items-center">
+            <img src="image/logo_sutomo.png" alt="Sutomo Logo" class="h-10 w-10 rounded-xl mr-3">
+            <span class="text-brown font-semibold hidden md:block">Sutomo LMS — Parents</span>
+        </div>
+        
+        <div class="flex-1 max-w-xs mx-4">
+            <select class="w-full px-4 py-2 rounded-xl border border-gray-200 focus-gold bg-gray-50">
+                <option selected>Chen Wei - SMA XI Science A</option>
+                <option>Wei Chen - SMA X Social B</option>
+            </select>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+            <button class="relative p-2 rounded-full hover:bg-gray-100 focus-gold">
+                <i class="fas fa-bell text-brown"></i>
+                <span class="absolute top-0 right-0 w-4 h-4 bg-maroon rounded-full text-xs text-white flex items-center justify-center">3</span>
+            </button>
+            <button class="p-2 rounded-full hover:bg-gray-100 focus-gold">
+                <i class="fas fa-question-circle text-brown"></i>
+            </button>
+            <div class="w-10 h-10 bg-brown rounded-full flex items-center justify-center text-white font-medium">
+                LM
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex flex-1">
+        <!-- Side Navigation (Desktop) -->
+    <nav class="hidden md:flex flex-col w-64 bg-white custom-shadow p-10 space-y-8">
+            <a href="#" class="py-3 px-4 rounded-xl bg-gold bg-opacity-10 text-brown font-medium flex items-center space-x-3">
+                <i class="fas fa-home w-5"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="py-3 px-4 rounded-xl hover:bg-gray-100 text-gray-600 font-medium flex items-center space-x-3 focus-gold">
+                <i class="fas fa-calendar-check w-5"></i>
+                <span>Attendance</span>
+            </a>
+            <a href="#" class="py-3 px-4 rounded-xl hover:bg-gray-100 text-gray-600 font-medium flex items-center space-x-3 focus-gold">
+                <i class="fas fa-chart-line w-5"></i>
+                <span>Grades</span>
+            </a>
+            <a href="#" class="py-3 px-4 rounded-xl hover:bg-gray-100 text-gray-600 font-medium flex items-center space-x-3 focus-gold">
+                <i class="fas fa-receipt w-5"></i>
+                <span>Invoices</span>
+            </a>
+            <a href="#" class="py-3 px-4 rounded-xl hover:bg-gray-100 text-gray-600 font-medium flex items-center space-x-3 focus-gold">
+                <i class="fas fa-handshake w-5"></i>
+                <span>PTC</span>
+            </a>
+            <a href="#" class="py-3 px-4 rounded-xl hover:bg-gray-100 text-gray-600 font-medium flex items-center space-x-3 focus-gold">
+                <i class="fas fa-calendar-day w-5"></i>
+                <span>Events</span>
+            </a>
+            <a href="#" class="py-3 px-4 rounded-xl hover:bg-gray-100 text-gray-600 font-medium flex items-center space-x-3 focus-gold">
+                <i class="fas fa-comments w-5"></i>
+                <span>Messages</span>
+            </a>
+            <a href="#" class="py-3 px-4 rounded-xl hover:bg-gray-100 text-gray-600 font-medium flex items-center space-x-3 focus-gold">
+                <i class="fas fa-bell w-5"></i>
+                <span>Notifications</span>
+            </a>
+            <a href="#" class="py-3 px-4 rounded-xl hover:bg-gray-100 text-gray-600 font-medium flex items-center space-x-3 focus-gold">
+                <i class="fas fa-cog w-5"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <main class="flex-1 p-4 md:p-6 overflow-auto">
+            <!-- Header Strip -->
+            <div class="bg-white rounded-xl custom-shadow p-5 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="w-16 h-16 bg-brown rounded-full flex items-center justify-center text-white text-2xl font-medium mr-4">
+                        LM
+                    </div>
+                    <div>
+                        <h1 class="text-brown text-xl font-semibold">Welcome back, Mrs. Li Mei</h1>
+                        <p class="text-gray-600">Here's the latest update for Chen Wei</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <button class="bg-gold bg-opacity-10 hover:bg-opacity-20 text-brown font-medium py-2 px-4 rounded-xl flex items-center focus-gold hover-lift">
+                        <i class="fas fa-file-alt mr-2"></i>
+                        View Report Card
+                    </button>
+                    <button class="bg-gold bg-opacity-10 hover:bg-opacity-20 text-brown font-medium py-2 px-4 rounded-xl flex items-center focus-gold hover-lift">
+                        <i class="fas fa-handshake mr-2"></i>
+                        Book PTC
+                    </button>
+                    <button class="bg-gold bg-opacity-10 hover:bg-opacity-20 text-brown font-medium py-2 px-4 rounded-xl flex items-center focus-gold hover-lift">
+                        <i class="fas fa-credit-card mr-2"></i>
+                        Pay Invoice
+                    </button>
+                </div>
+            </div>
+
+            <!-- Row 1 - KPI Snapshot -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+                <!-- Attendance Donut -->
+                <div class="bg-white rounded-xl custom-shadow p-5 hover-lift">
+                    <h3 class="text-brown font-medium mb-3">Attendance</h3>
+                    <div class="flex items-center">
+                        <div class="relative w-16 h-16 mr-4">
+                            <svg class="w-16 h-16 donut-chart" viewBox="0 0 42 42">
+                                <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#E5E7EB" stroke-width="3"></circle>
+                                <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#6B3A00" stroke-width="3" stroke-dasharray="100 100" stroke-dashoffset="4" class="count-up"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-brown font-bold text-lg">96%</div>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">This month</p>
+                            <p class="text-sm">3 late, 1 absent</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Grades Sparkline -->
+                <div class="bg-white rounded-xl custom-shadow p-5 hover-lift">
+                    <h3 class="text-brown font-medium mb-3">Latest Grade Average</h3>
+                    <div class="flex items-center">
+                        <div class="text-3xl font-bold text-brown mr-4 count-up">88%</div>
+                        <div class="flex-1 h-8 bg-gray-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-brown rounded-full" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">Across all subjects</p>
+                </div>
+                
+                <!-- Invoices -->
+                <div class="bg-white rounded-xl custom-shadow p-5 hover-lift">
+                    <h3 class="text-brown font-medium mb-3">Invoices</h3>
+                    <div class="text-2xl font-bold text-brown">Rp 2,150,000</div>
+                    <div class="flex items-center mt-2">
+                        <span class="bg-maroon bg-opacity-15 text-maroon text-sm font-medium px-2 py-1 rounded-full">2 Pending</span>
+                    </div>
+                </div>
+                
+                <!-- Upcoming Event -->
+                <div class="bg-white rounded-xl custom-shadow p-5 hover-lift">
+                    <h3 class="text-brown font-medium mb-3">Upcoming Event</h3>
+                    <div class="flex items-center bg-gold bg-opacity-10 text-brown px-3 py-2 rounded-xl">
+                        <i class="fas fa-calendar-day mr-2"></i>
+                        <span>Science Fair Sep 12</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2 - Attendance & Grades -->
+            <div class="grid grid-cols-1 lg:grid-cols-7 gap-5 mb-6">
+                <!-- Attendance Tracker -->
+                <div class="lg:col-span-4 bg-white rounded-xl custom-shadow p-5 hover-lift">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-brown font-medium">Attendance Tracker</h3>
+                        <div class="flex space-x-2">
+                            <select class="text-sm px-3 py-1 rounded-lg border border-gray-200 focus-gold">
+                                <option>September 2023</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-7 gap-2 mb-4">
+                        <div class="text-center text-xs text-gray-500 py-1">S</div>
+                        <div class="text-center text-xs text-gray-500 py-1">M</div>
+                        <div class="text-center text-xs text-gray-500 py-1">T</div>
+                        <div class="text-center text-xs text-gray-500 py-1">W</div>
+                        <div class="text-center text-xs text-gray-500 py-1">T</div>
+                        <div class="text-center text-xs text-gray-500 py-1">F</div>
+                        <div class="text-center text-xs text-gray-500 py-1">S</div>
+                        
+                        <!-- Calendar days - simplified for demo -->
+                        <div class="text-center py-2"><span class="text-gray-400">26</span></div>
+                        <div class="text-center py-2"><span class="text-gray-400">27</span></div>
+                        <div class="text-center py-2"><span class="text-gray-400">28</span></div>
+                        <div class="text-center py-2"><span class="text-gray-400">29</span></div>
+                        <div class="text-center py-2"><span class="text-gray-400">30</span></div>
+                        <div class="text-center py-2"><span class="text-gray-400">31</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">1</span></div>
+                        
+                        <!-- Week 1 -->
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">2</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">3</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-yellow-100 text-yellow-800">4</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">5</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">6</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">7</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">8</span></div>
+                        
+                        <!-- Week 2 -->
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">9</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-red-100 text-red-800">10</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">11</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">12</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-yellow-100 text-yellow-800">13</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">14</span></div>
+                        <div class="text-center py-2"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-green-100 text-green-800">15</span></div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between text-sm">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-green-500 mr-1"></span>
+                                <span>Present</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-yellow-500 mr-1"></span>
+                                <span>Late</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-red-500 mr-1"></span>
+                                <span>Absent</span>
+                            </div>
+                        </div>
+                        <button class="text-gold font-medium flex items-center focus-gold">
+                            <span>View Details</span>
+                            <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Grades Snapshot -->
+                <div class="lg:col-span-3 bg-white rounded-xl custom-shadow p-5 hover-lift">
+                    <h3 class="text-brown font-medium mb-4">Grades Snapshot</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium">Mathematics</p>
+                                <p class="text-sm text-gray-600">Mr. Zhang</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-bold text-brown text-lg">85%</div>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Improving</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium">English</p>
+                                <p class="text-sm text-gray-600">Ms. Tan</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-bold text-brown text-lg">92%</div>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Stable</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium">Physics</p>
+                                <p class="text-sm text-gray-600">Mr. Wijaya</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-bold text-brown text-lg">78%</div>
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Needs Attention</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium">Chinese</p>
+                                <p class="text-sm text-gray-600">Ms. Chen</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-bold text-brown text-lg">88%</div>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Improving</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="mt-4 text-gold font-medium flex items-center focus-gold">
+                        <span>View All Grades</span>
+                        <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Row 3 - Financials + PTC -->
+            <div class="grid grid-cols-1 lg:grid-cols-7 gap-5 mb-6">
+                <!-- Invoices & Payments -->
+                <div class="lg:col-span-4 bg-white rounded-xl custom-shadow p-5 hover-lift">
+                    <h3 class="text-brown font-medium mb-4">Invoices & Payments</h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-sm text-gray-500 border-b">
+                                    <th class="pb-2">Date</th>
+                                    <th class="pb-2">Description</th>
+                                    <th class="pb-2">Amount</th>
+                                    <th class="pb-2">Status</th>
+                                    <th class="pb-2"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-sm border-b border-gray-100">
+                                    <td class="py-3">Sep 5, 2023</td>
+                                    <td>Tuition Fee - September</td>
+                                    <td>Rp 1,250,000</td>
+                                    <td><span class="bg-maroon bg-opacity-15 text-maroon px-2 py-1 rounded-full text-xs">Overdue</span></td>
+                                    <td class="text-right"><button class="text-gold font-medium focus-gold">Pay Now</button></td>
+                                </tr>
+                                <tr class="text-sm border-b border-gray-100">
+                                    <td class="py-3">Sep 10, 2023</td>
+                                    <td>Activity Fee - Science Fair</td>
+                                    <td>Rp 900,000</td>
+                                    <td><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Pending</span></td>
+                                    <td class="text-right"><button class="text-gold font-medium focus-gold">Pay Now</button></td>
+                                </tr>
+                                <tr class="text-sm">
+                                    <td class="py-3">Aug 15, 2023</td>
+                                    <td>Tuition Fee - August</td>
+                                    <td>Rp 6,500,000</td>
+                                    <td><span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Paid</span></td>
+                                    <td class="text-right"><button class="text-gray-500 font-medium" disabled>View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- PTC Bookings -->
+                <div class="lg:col-span-3 bg-white rounded-xl custom-shadow p-5 hover-lift">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-brown font-medium">PTC Bookings</h3>
+                        <button class="bg-gold bg-opacity-10 hover:bg-opacity-20 text-brown font-medium py-2 px-4 rounded-xl flex items-center focus-gold hover-lift text-sm">
+                            <i class="fas fa-plus mr-1"></i>
+                            Book New PTC
+                        </button>
+                    </div>
+                    
+                    <div class="mb-4 p-3 bg-gray-50 rounded-xl">
+                        <div class="text-center text-sm text-gray-600 mb-2">September 2023</div>
+                        <div class="grid grid-cols-7 gap-1 mb-2">
+                            <div class="text-center text-xs py-1 text-gray-500">S</div>
+                            <div class="text-center text-xs py-1 text-gray-500">M</div>
+                            <div class="text-center text-xs py-1 text-gray-500">T</div>
+                            <div class="text-center text-xs py-1 text-gray-500">W</div>
+                            <div class="text-center text-xs py-1 text-gray-500">T</div>
+                            <div class="text-center text-xs py-1 text-gray-500">F</div>
+                            <div class="text-center text-xs py-1 text-gray-500">S</div>
+                            
+                            <div class="text-center text-xs py-1"><span class="text-gray-400">27</span></div>
+                            <div class="text-center text-xs py-1"><span class="text-gray-400">28</span></div>
+                            <div class="text-center text-xs py-1"><span class="text-gray-400">29</span></div>
+                            <div class="text-center text-xs py-1"><span class="text-gray-400">30</span></div>
+                            <div class="text-center text-xs py-1"><span class="text-gray-400">31</span></div>
+                            <div class="text-center text-xs py-1">1</div>
+                            <div class="text-center text-xs py-1">2</div>
+                            
+                            <div class="text-center text-xs py-1">3</div>
+                            <div class="text-center text-xs py-1">4</div>
+                            <div class="text-center text-xs py-1">
+                                <span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-gold bg-opacity-20">5</span>
+                            </div>
+                            <div class="text-center text-xs py-1">
+                                <span class="w-6 h-6 inline-flex items-center justify-center rounded-full bg-gold bg-opacity-20">6</span>
+                            </div>
+                            <div class="text-center text-xs py-1">7</div>
+                            <div class="text-center text-xs py-1">8</div>
+                            <div class="text-center text-xs py-1">9</div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium">Sep 5 — English</p>
+                                <p class="text-sm text-gray-600">14:00 with Ms. Tan</p>
+                            </div>
+                            <button class="text-gold focus-gold">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium">Sep 6 — Mathematics</p>
+                                <p class="text-sm text-gray-600">10:30 with Mr. Zhang</p>
+                            </div>
+                            <button class="text-gold focus-gold">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 4 - Events + Messages -->
+            <div class="grid grid-cols-1 lg:grid-cols-7 gap-5 mb-6">
+                <!-- School Events Timeline -->
+                <div class="lg:col-span-4 bg-white rounded-xl custom-shadow p-5 hover-lift">
+                    <h3 class="text-brown font-medium mb-4">School Events</h3>
+                    
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <div class="bg-gold bg-opacity-10 text-brown px-3 py-2 rounded-xl flex items-center">
+                            <i class="fas fa-flask mr-2"></i>
+                            <span>Science Fair - Sep 12</span>
+                        </div>
+                        <div class="bg-gold bg-opacity-10 text-brown px-3 py-2 rounded-xl flex items-center">
+                            <i class="fas fa-running mr-2"></i>
+                            <span>Sports Day - Sep 20</span>
+                        </div>
+                        <div class="bg-gold bg-opacity-10 text-brown px-3 py-2 rounded-xl flex items-center">
+                            <i class="fas fa-language mr-2"></i>
+                            <span>Language Week - Sep 28</span>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-gold bg-opacity-10 hover:bg-opacity-20 text-brown font-medium py-2 px-4 rounded-xl flex items-center focus-gold hover-lift">
+                        <i class="fas fa-calendar-plus mr-2"></i>
+                        Add to Calendar
+                    </button>
+                </div>
+                
+                <!-- Messages -->
+                <div class="lg:col-span-3 bg-white rounded-xl custom-shadow p-5 hover-lift">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-brown font-medium">Messages</h3>
+                        <div class="flex space-x-1">
+                            <button class="text-sm px-2 py-1 rounded-lg bg-gold bg-opacity-10 text-brown font-medium">All</button>
+                            <button class="text-sm px-2 py-1 rounded-lg text-gray-500 hover:bg-gray-100 focus-gold">Teachers</button>
+                            <button class="text-sm px-2 py-1 rounded-lg text-gray-500 hover:bg-gray-100 focus-gold">School</button>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 mb-4 max-h-60 overflow-y-auto">
+                        <div class="flex items-start p-3 bg-gray-50 rounded-lg">
+                            <div class="w-10 h-10 bg-brown rounded-full flex items-center justify-center text-white font-medium mr-3">T</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-medium">Ms. Tan</p>
+                                    <span class="bg-maroon bg-opacity-15 text-maroon text-xs px-2 py-1 rounded-full">Unread</span>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate">Chen Wei's English essay was excellent this week. I wanted to share some feedback...</p>
+                                <p class="text-xs text-gray-500 mt-1">Yesterday, 3:45 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-3 bg-gray-50 rounded-lg">
+                            <div class="w-10 h-10 bg-brown rounded-full flex items-center justify-center text-white font-medium mr-3">Z</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <p class="font-medium">Mr. Zhang</p>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate">Reminder about the math test next Monday. Please ensure Chen Wei reviews chapters 4-6.</p>
+                                <p class="text-xs text-gray-500 mt-1">Sep 5, 10:30 AM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-gold bg-opacity-10 hover:bg-opacity-20 text-brown font-medium py-2 px-4 rounded-xl flex items-center justify-center w-full focus-gold hover-lift">
+                        <i class="fas fa-pen mr-2"></i>
+                        Compose New Message
+                    </button>
+                </div>
+            </div>
+
+            <!-- Row 5 - Personalized Insights -->
+            <div class="bg-white rounded-xl custom-shadow p-5 mb-6 hover-lift">
+                <h3 class="text-brown font-medium mb-4">Personalized Insights</h3>
+                
+                <div class="bg-gold bg-opacity-5 p-4 rounded-xl mb-4">
+                    <p class="text-brown">"Chen Wei's math performance is improving; focus on Physics this week. Consider reviewing Chapter 3 concepts which appear challenging based on recent quiz results."</p>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <button class="bg-gold bg-opacity-10 hover:bg-opacity-20 text-brown font-medium py-2 px-4 rounded-xl flex items-center focus-gold hover-lift">
+                        <i class="fas fa-book-open mr-2"></i>
+                        View Study Plan
+                    </button>
+                    <button class="bg-gold bg-opacity-10 hover:bg-opacity-20 text-brown font-medium py-2 px-4 rounded-xl flex items-center focus-gold hover-lift">
+                        <i class="fas fa-comment mr-2"></i>
+                        Send Message to Teacher
+                    </button>
+                    <button class="bg-gold bg-opacity-10 hover:bg-opacity-20 text-brown font-medium py-2 px-4 rounded-xl flex items-center focus-gold hover-lift">
+                        <i class="fas fa-download mr-2"></i>
+                        Download Progress Report
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white custom-shadow flex justify-around items-center py-3">
+        <a href="#" class="flex flex-col items-center text-gold">
+            <i class="fas fa-home text-lg"></i>
+            <span class="text-xs mt-1">Home</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-gray-500">
+            <i class="fas fa-calendar-check text-lg"></i>
+            <span class="text-xs mt-1">Attendance</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-gray-500">
+            <i class="fas fa-chart-line text-lg"></i>
+            <span class="text-xs mt-1">Grades</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-gray-500">
+            <i class="fas fa-receipt text-lg"></i>
+            <span class="text-xs mt-1">Invoices</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-gray-500">
+            <i class="fas fa-comments text-lg"></i>
+            <span class="text-xs mt-1">Messages</span>
+        </a>
+    </nav>
+
+    <!-- AI Parent Assistant -->
+    <button id="chatButton" class="fixed bottom-20 md:bottom-6 right-6 w-14 h-14 bg-gold rounded-full flex items-center justify-center text-white shadow-lg hover-lift focus-gold">
+        <i class="fas fa-robot text-xl"></i>
+    </button>
+    
+    <div id="chatSheet" class="chat-sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl custom-shadow z-40" style="height: 70vh; max-height: 600px;">
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+            <h3 class="text-brown font-medium">Parent Assistant</h3>
+            <button id="closeChat" class="text-gray-500">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="p-4 h-[calc(100%-130px)] overflow-y-auto">
+            <div class="flex justify-start mb-4">
+                <div class="bg-gray-100 rounded-xl p-3 max-w-xs">
+                    <p class="text-sm">Hello! I'm your Parent Assistant. How can I help you today?</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 mb-4">
+                <button class="bg-gold bg-opacity-10 text-brown text-sm p-2 rounded-xl text-left focus-gold">
+                    What's my child's attendance this week?
+                </button>
+                <button class="bg-gold bg-opacity-10 text-brown text-sm p-2 rounded-xl text-left focus-gold">
+                    Show overdue invoices
+                </button>
+                <button class="bg-gold bg-opacity-10 text-brown text-sm p-2 rounded-xl text-left focus-gold">
+                    Upcoming events?
+                </button>
+                <button class="bg-gold bg-opacity-10 text-brown text-sm p-2 rounded-xl text-left focus-gold">
+                    Latest grades update
+                </button>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+            <div class="flex items-center">
+                <input type="text" placeholder="Ask about attendance, invoices, or learning tips..." class="flex-1 border border-gray-200 rounded-xl py-2 px-4 focus-gold">
+                <button class="ml-2 w-10 h-10 bg-gold rounded-xl flex items-center justify-center text-white">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed top-20 right-6 z-50 space-y-3"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation for count-up elements
+            const countUps = document.querySelectorAll('.count-up');
+            countUps.forEach(el => {
+                if (el.tagName === 'CIRCLE') {
+                    // Animate donut chart
+                    setTimeout(() => {
+                        el.style.transition = 'stroke-dashoffset 1s ease-out';
+                        el.style.strokeDashoffset = '4';
+                    }, 300);
+                }
+            });
+            
+            // Chat assistant functionality
+            const chatButton = document.getElementById('chatButton');
+            const chatSheet = document.getElementById('chatSheet');
+            const closeChat = document.getElementById('closeChat');
+            
+            chatButton.addEventListener('click', () => {
+                chatSheet.classList.add('open');
+            });
+            
+            closeChat.addEventListener('click', () => {
+                chatSheet.classList.remove('open');
+            });
+            
+            // Toast function
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.className = 'toast bg-white custom-shadow p-4 rounded-xl flex items-center';
+                toast.innerHTML = `
+                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                    <span>${message}</span>
+                `;
+                
+                document.getElementById('toastContainer').appendChild(toast);
+                
+                // Remove toast after animation
+                setTimeout(() => {
+                    toast.remove();
+                }, 3000);
+            }
+            
+            // Add event listeners for actions that show toasts
+            document.querySelectorAll('button').forEach(button => {
+                if (button.textContent.includes('Pay Now')) {
+                    button.addEventListener('click', () => {
+                        showToast('Payment initiated successfully');
+                    });
+                }
+                
+                if (button.textContent.includes('Book PTC') || button.textContent.includes('Book New PTC')) {
+                    button.addEventListener('click', () => {
+                        showToast('Redirecting to PTC booking');
+                    });
+                }
+                
+                if (button.textContent.includes('Add to Calendar')) {
+                    button.addEventListener('click', () => {
+                        showToast('Event added to your calendar');
+                    });
+                }
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.key === '/' && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    document.querySelector('input[type="text"]')?.focus();
+                }
+                
+                if (e.key === 'c' && e.ctrlKey) {
+                    e.preventDefault();
+                    chatSheet.classList.toggle('open');
+                }
+                
+                if (e.key === 'i' && e.ctrlKey) {
+                    e.preventDefault();
+                    // Scroll to invoices section
+                    document.querySelector('[href*="Invoices"]')?.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

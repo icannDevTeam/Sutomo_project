@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sutomo LMS - Students</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+        
+        * {
+            font-family: 'Inter', 'Roboto', sans-serif;
+        }
+        
+        :root {
+            --brown: #6B3A00;
+            --gold: #D4AF37;
+            --maroon: #8A1538;
+            --cream: #F7F4EF;
+            --white: #FFFFFF;
+        }
+        
+        body {
+            background-color: var(--cream);
+            color: #333;
+        }
+        
+        .card {
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .donut {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(var(--gold) 75%, var(--cream) 0);
+            mask: radial-gradient(white 55%, transparent 0);
+            -webkit-mask: radial-gradient(white 55%, transparent 0);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e5e7eb;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background-color: var(--gold);
+            transition: width 1s ease-in-out;
+        }
+        
+        .current-period {
+            background-color: var(--gold);
+            color: white;
+        }
+        
+        .chat-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin: 8px 0;
+        }
+        
+        .bot-bubble {
+            background-color: var(--gold);
+            color: white;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .user-bubble {
+            background-color: var(--cream);
+            border: 1px solid #e5e7eb;
+            border-bottom-right-radius: 4px;
+            margin-left: auto;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            padding: 12px 16px;
+            background-color: var(--cream);
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            width: fit-content;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .ripple:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            20% {
+                transform: scale(50, 50);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(100, 100);
+                opacity: 0;
+            }
+        }
+        
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .count-up {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--cream) 0%, #f0ebe0 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg pb-24">
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-10 bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="image/logo_sutomo.png" alt="Sutomo Logo" class="h-10 w-10 rounded-full mr-3">
+                <h1 class="text-xl font-semibold text-[#6B3A00]">Sutomo LMS — Students</h1>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden md:block">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                    <input type="text" class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent" placeholder="Search (Press /)" id="searchInput">
+                </div>
+                
+                <button class="relative p-2 rounded-full hover:bg-gray-100">
+                    <i class="fas fa-bell text-gray-600"></i>
+                    <span class="absolute top-0 right-0 bg-[#8A1538] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                </button>
+                
+                <button class="p-2 rounded-full hover:bg-gray-100" id="aiToggle">
+                    <i class="fas fa-robot text-[#D4AF37]"></i>
+                </button>
+                
+                <div class="w-10 h-10 rounded-full bg-[#6B3A00] flex items-center justify-center text-white font-semibold">
+                    CW
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6">
+        <!-- Profile Strip -->
+        <div class="card bg-white p-6 mb-6">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="w-20 h-20 rounded-full bg-[#6B3A00] flex items-center justify-center text-white text-2xl font-bold mr-4">
+                        CW
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-semibold">Chen Wei</h2>
+                        <p class="text-gray-600">SMA XI Science A</p>
+                        <div class="mt-1 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#D4AF37] bg-opacity-20 text-[#6B3A00]">
+                            GPA: 3.8
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="donut mr-4"></div>
+                    <div>
+                        <p class="text-sm text-gray-600">Overall Progress</p>
+                        <p class="text-lg font-semibold">78%</p>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <button class="px-4 py-2 bg-[#6B3A00] text-white rounded-lg hover:bg-[#5a3000] transition-colors">
+                        Open Gradebook
+                    </button>
+                    <button class="px-4 py-2 border border-[#6B3A00] text-[#6B3A00] rounded-lg hover:bg-[#6B3A00] hover:text-white transition-colors">
+                        Download Report Card
+                    </button>
+                    <button class="px-4 py-2 border border-[#D4AF37] text-[#D4AF37] rounded-lg hover:bg-[#D4AF37] hover:text-white transition-colors">
+                        Ask My Advisor
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 1 — Today at a Glance -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="card bg-white p-5">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-[#F7F4EF] flex items-center justify-center text-[#6B3A00] mr-3">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="font-semibold">Next Class</h3>
+                </div>
+                <p class="text-lg font-medium">Physics</p>
+                <p class="text-gray-600">09:10 - 10:00</p>
+                <p class="text-sm mt-2">Mr. Ahmad</p>
+            </div>
+            
+            <div class="card bg-white p-5">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-[#F7F4EF] flex items-center justify-center text-[#6B3A00] mr-3">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3 class="font-semibold">Due Today</h3>
+                </div>
+                <p class="text-3xl font-bold text-[#8A1538] count-up" id="dueTodayCount">2</p>
+                <p class="text-sm mt-2">Assignments</p>
+            </div>
+            
+            <div class="card bg-white p-5">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-[#F7F4EF] flex items-center justify-center text-[#6B3A00] mr-3">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3 class="font-semibold">Attendance Streak</h3>
+                </div>
+                <p class="text-3xl font-bold text-[#D4AF37] count-up" id="streakCount">7</p>
+                <p class="text-sm mt-2">Days in a row</p>
+            </div>
+            
+            <div class="card bg-white p-5">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-[#F7F4EF] flex items-center justify-center text-[#6B3A00] mr-3">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="font-semibold">Average Grade</h3>
+                </div>
+                <p class="text-3xl font-bold text-[#6B3A00] count-up" id="gradeCount">88</p>
+                <p class="text-sm mt-2">%
+                    <span class="inline-block ml-2 text-green-500">
+                        <i class="fas fa-arrow-up"></i> 2.5%
+                    </span>
+                </p>
+                <div class="h-1 w-full bg-gray-200 rounded-full mt-2">
+                    <div class="h-1 bg-[#D4AF37] rounded-full" style="width: 88%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2 — Core Flow -->
+        <div class="grid grid-cols-1 lg:grid-cols-7 gap-6 mb-6">
+            <div class="card bg-white p-5 lg:col-span-4">
+                <h3 class="font-semibold text-lg mb-4">Today's Timetable</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left py-2">Time</th>
+                                <th class="text-left py-2">Subject</th>
+                                <th class="text-left py-2">Teacher</th>
+                                <th class="text-left py-2">Room</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="py-3">07:30 - 08:20</td>
+                                <td class="py-3">Math</td>
+                                <td class="py-3">Ms. Tan</td>
+                                <td class="py-3">A102</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-3">08:20 - 09:10</td>
+                                <td class="py-3">English</td>
+                                <td class="py-3">Mr. Wilson</td>
+                                <td class="py-3">B205</td>
+                            </tr>
+                            <tr class="border-b current-period">
+                                <td class="py-3">09:10 - 10:00</td>
+                                <td class="py-3">Physics</td>
+                                <td class="py-3">Mr. Ahmad</td>
+                                <td class="py-3">Lab 3</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-3">10:10 - 11:00</td>
+                                <td class="py-3">Chinese</td>
+                                <td class="py-3">Mr. Zhang</td>
+                                <td class="py-3">C104</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3">11:00 - 11:50</td>
+                                <td class="py-3">History</td>
+                                <td class="py-3">Ms. Lee</td>
+                                <td class="py-3">A201</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="card bg-white p-5 lg:col-span-3">
+                <h3 class="font-semibold text-lg mb-4">Assignments</h3>
+                
+                <div class="mb-5">
+                    <div class="flex items-center justify-between mb-2">
+                        <h4 class="font-medium text-[#8A1538]">Due Today</h4>
+                        <span class="text-sm bg-[#8A1538] bg-opacity-10 text-[#8A1538] px-2 py-1 rounded-full">2</span>
+                    </div>
+                    
+                    <div class="mb-3 p-3 border border-gray-200 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-medium">Math Homework</h5>
+                            <span class="text-xs bg-[#8A1538] text-white px-2 py-1 rounded-full">Due Today</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Chapter 5 Exercises</p>
+                    </div>
+                    
+                    <div class="p-3 border border-gray-200 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-medium">Chinese Reading Log</h5>
+                            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Graded</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Submit reflection</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h4 class="font-medium text-[#6B3A00]">Due This Week</h4>
+                        <span class="text-sm bg-[#6B3A00] bg-opacity-10 text-[#6B3A00] px-2 py-1 rounded-full">2</span>
+                    </div>
+                    
+                    <div class="mb-3 p-3 border border-gray-200 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-medium">English Essay</h5>
+                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Draft</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">First draft submission</p>
+                    </div>
+                    
+                    <div class="p-3 border border-gray-200 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-medium">Physics Lab Report</h5>
+                            <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">Late</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Experiment #3 Analysis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3 — Engagement -->
+        <div class="grid grid-cols-1 lg:grid-cols-7 gap-6 mb-6">
+            <div class="card bg-white p-5 lg:col-span-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-semibold text-lg">Announcements</h3>
+                    <button class="text-sm text-[#6B3A00]">View All</button>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="p-4 border border-gray-200 rounded-lg">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <span class="text-xs bg-[#D4AF37] bg-opacity-20 text-[#6B3A00] px-2 py-1 rounded-full mr-2">Event</span>
+                                    <span class="text-xs text-gray-500">Today, 8:30 AM</span>
+                                </div>
+                                <h4 class="font-medium">Annual Science Fair</h4>
+                                <p class="text-sm text-gray-600 mt-1">Registration opens this Friday for all science enthusiasts!</p>
+                            </div>
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 border border-gray-200 rounded-lg">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <span class="text-xs bg-[#8A1538] bg-opacity-20 text-[#8A1538] px-2 py-1 rounded-full mr-2">Meeting</span>
+                                    <span class="text-xs text-gray-500">Yesterday, 3:45 PM</span>
+                                </div>
+                                <h4 class="font-medium">Parent-Teacher Meeting</h4>
+                                <p class="text-sm text-gray-600 mt-1">Scheduled for next week. Please confirm your time slot.</p>
+                            </div>
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 border border-gray-200 rounded-lg">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <span class="text-xs bg-[#6B3A00] bg-opacity-20 text-[#6B3A00] px-2 py-1 rounded-full mr-2">Exam</span>
+                                    <span class="text-xs text-gray-500">Sep 12, 10:15 AM</span>
+                                </div>
+                                <h4 class="font-medium">Exam Integrity Reminder</h4>
+                                <p class="text-sm text-gray-600 mt-1">Important guidelines for upcoming mid-term examinations.</p>
+                            </div>
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card bg-white p-5 lg:col-span-3">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-semibold text-lg">Messages</h3>
+                    <button class="text-sm text-[#6B3A00]">View All</button>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="p-3 border border-gray-200 rounded-lg flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-[#6B3A00] flex items-center justify-center text-white font-semibold mr-3">
+                            MT
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-medium">Ms. Tan</h4>
+                                <span class="text-xs text-gray-500">10:30 AM</span>
+                            </div>
+                            <p class="text-sm text-gray-600 truncate">About your math homework question...</p>
+                        </div>
+                        <span class="ml-2 w-2 h-2 bg-[#8A1538] rounded-full"></span>
+                    </div>
+                    
+                    <div class="p-3 border border-gray-200 rounded-lg flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-[#D4AF37] flex items-center justify-center text-white font-semibold mr-3">
+                            MZ
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-medium">Mr. Zhang</h4>
+                                <span class="text-xs text-gray-500">Yesterday</span>
+                            </div>
+                            <p class="text-sm text-gray-600 truncate">Your essay improvement is remarkable!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-3 border border-gray-200 rounded-lg flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-[#8A1538] flex items-center justify-center text-white font-semibold mr-3">
+                            MA
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-medium">Mr. Ahmad</h4>
+                                <span class="text-xs text-gray-500">Sep 15</span>
+                            </div>
+                            <p class="text-sm text-gray-600 truncate">Lab report feedback is ready for review</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-4 py-2 border border-[#6B3A00] text-[#6B3A00] rounded-lg hover:bg-[#6B3A00] hover:text-white transition-colors flex items-center justify-center">
+                    <i class="fas fa-reply mr-2"></i> New Message
+                </button>
+            </div>
+        </div>
+
+        <!-- Row 4 — Personalized Learning Hub -->
+        <div class="grid grid-cols-1 lg:grid-cols-7 gap-6 mb-6">
+            <div class="card bg-white p-5 lg:col-span-4">
+                <h3 class="font-semibold text-lg mb-4">Your Learning Path</h3>
+                
+                <div class="space-y-4 mb-6">
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-medium">Mathematics</span>
+                            <span class="text-sm font-semibold">75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-medium">English</span>
+                            <span class="text-sm font-semibold">90%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-medium">Physics</span>
+                            <span class="text-sm font-semibold">68%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 68%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-medium">Chinese</span>
+                            <span class="text-sm font-semibold">88%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 88%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-[#F7F4EF] p-4 border border-[#D4AF37]">
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 rounded-full bg-[#D4AF37] flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Next Recommended Activity</h4>
+                            <p class="mt-1">Revise Physics Lab Report — 20 mins</p>
+                            <button class="mt-3 px-3 py-1 bg-[#D4AF37] text-white rounded-lg text-sm">
+                                Start Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-4 py-3 bg-[#6B3A00] text-white rounded-lg hover:bg-[#5a3000] transition-colors flex items-center justify-center" id="generatePlan">
+                    <i class="fas fa-plus-circle mr-2"></i> Generate Study Plan
+                </button>
+            </div>
+            
+            <div class="card bg-white p-5 lg:col-span-3">
+                <h3 class="font-semibold text-lg mb-4">AI Learning Companion</h3>
+                
+                <div class="bg-[#F7F4EF] rounded-lg p-4 mb-4">
+                    <p class="text-sm">Hello, Chen! I can help with assignments, summaries, or quick questions.</p>
+                </div>
+                
+                <div class="mb-4 h-48 overflow-y-auto" id="chatContainer">
+                    <div class="chat-bubble bot-bubble">
+                        Hi Chen! How can I help with your studies today?
+                    </div>
+                    <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <button class="text-xs bg-[#F7F4EF] text-[#6B3A00] px-3 py-1 rounded-full border border-[#D4AF37]">
+                        Explain Photosynthesis
+                    </button>
+                    <button class="text-xs bg-[#F7F4EF] text-[#6B3A00] px-3 py-1 rounded-full border border-[#D4AF37]">
+                        Check my Math HW
+                    </button>
+                    <button class="text-xs bg-[#F7F4EF] text-[#6B3A00] px-3 py-1 rounded-full border border-[#D4AF37]">
+                        Summarize lesson
+                    </button>
+                    <button class="text-xs bg-[#F7F4EF] text-[#6B3A00] px-3 py-1 rounded-full border border-[#D4AF37]">
+                        Quiz me
+                    </button>
+                </div>
+                
+                <div class="flex">
+                    <input type="text" class="flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent" placeholder="Ask me anything (Homework, Concepts, Quick Q&A)">
+                    <button class="bg-[#D4AF37] text-white px-4 rounded-r-lg">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Quick Navigation Buttons -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-3 px-4 flex justify-around items-center shadow-lg">
+        <button class="nav-button flex flex-col items-center p-2 ripple rounded-xl">
+            <div class="w-12 h-12 rounded-full bg-[#6B3A00] flex items-center justify-center text-white mb-1">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <span class="text-xs">Personalized Learning</span>
+        </button>
+        
+        <button class="nav-button flex flex-col items-center p-2 ripple rounded-xl">
+            <div class="w-12 h-12 rounded-full bg-[#8A1538] flex items-center justify-center text-white mb-1">
+                <i class="fas fa-book"></i>
+            </div>
+            <span class="text-xs">Homework</span>
+        </button>
+        
+        <button class="nav-button flex flex-col items-center p-2 ripple rounded-xl">
+            <div class="w-12 h-12 rounded-full bg-[#D4AF37] flex items-center justify-center text-white mb-1">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <span class="text-xs">Attendance</span>
+        </button>
+        
+        <button class="nav-button flex flex-col items-center p-2 ripple rounded-xl" id="navAI">
+            <div class="w-12 h-12 rounded-full bg-[#6B3A00] flex items-center justify-center text-white mb-1">
+                <i class="fas fa-robot"></i>
+            </div>
+            <span class="text-xs">AI Companion</span>
+        </button>
+        
+        <button class="nav-button flex flex-col items-center p-2 ripple rounded-xl">
+            <div class="w-12 h-12 rounded-full bg-[#8A1538] flex items-center justify-center text-white mb-1">
+                <i class="fas fa-calendar-day"></i>
+            </div>
+            <span class="text-xs">Events</span>
+        </button>
+    </div>
+
+    <!-- AI Chat Floating Button -->
+    <button class="fixed bottom-20 right-6 w-14 h-14 rounded-full bg-[#D4AF37] text-white shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow" id="floatAI">
+        <i class="fas fa-robot text-xl"></i>
+    </button>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-4 right-4 bg-[#6B3A00] text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300">
+        Study plan generated successfully!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Counter animation
+            function animateValue(id, start, end, duration) {
+                const obj = document.getElementById(id);
+                if (!obj) return;
+                
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+            
+            animateValue('dueTodayCount', 0, 2, 1000);
+            animateValue('streakCount', 0, 7, 1000);
+            animateValue('gradeCount', 0, 88, 1500);
+            
+            // Toast notification
+            const toast = document.getElementById('toast');
+            const generatePlanBtn = document.getElementById('generatePlan');
+            
+            if (generatePlanBtn && toast) {
+                generatePlanBtn.addEventListener('click', function() {
+                    toast.classList.remove('translate-x-full');
+                    setTimeout(() => {
+                        toast.classList.add('translate-x-full');
+                    }, 3000);
+                });
+            }
+            
+            // AI Chat toggle
+            const aiToggle = document.getElementById('aiToggle');
+            const navAI = document.getElementById('navAI');
+            const floatAI = document.getElementById('floatAI');
+            const typingIndicator = document.getElementById('typingIndicator');
+            
+            function toggleAIChat() {
+                // This would normally toggle a chat panel
+                // For demonstration, we'll show the typing indicator
+                if (typingIndicator) {
+                    typingIndicator.style.display = 'flex';
+                    setTimeout(() => {
+                        typingIndicator.style.display = 'none';
+                        const chatContainer = document.getElementById('chatContainer');
+                        if (chatContainer) {
+                            const newMessage = document.createElement('div');
+                            newMessage.className = 'chat-bubble bot-bubble';
+                            newMessage.textContent = 'I can help explain concepts, review homework, or create study plans! What would you like to do?';
+                            chatContainer.appendChild(newMessage);
+                            chatContainer.scrollTop = chatContainer.scrollHeight;
+                        }
+                    }, 2000);
+                }
+            }
+            
+            if (aiToggle) aiToggle.addEventListener('click', toggleAIChat);
+            if (navAI) navAI.addEventListener('click', toggleAIChat);
+            if (floatAI) floatAI.addEventListener('click', toggleAIChat);
+            
+            // Search shortcut
+            const searchInput = document.getElementById('searchInput');
+            document.addEventListener('keydown', function(e) {
+                if (e.key === '/' && searchInput) {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
