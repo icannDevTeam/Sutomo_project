@@ -532,6 +532,38 @@
                         <i class="fas fa-pen mr-2"></i>
                         Compose New Message
                     </button>
+                                                        <!-- Compose Message Modal -->
+                                                        <div id="composeModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+                                                            <div class="bg-white rounded-2xl p-8 shadow-2xl w-full max-w-md relative">
+                                                                <button id="closeCompose" class="absolute top-4 right-4 text-brown text-xl"><i class="fas fa-times"></i></button>
+                                                                <h2 class="text-2xl font-bold text-brown mb-6">Compose Message</h2>
+                                                                <form id="composeForm" class="space-y-4">
+                                                                    <div>
+                                                                        <label class="block text-brown font-medium mb-1">Select Teacher</label>
+                                                                        <select class="w-full border rounded-xl px-3 py-2" required>
+                                                                            <option value="">Choose a teacher</option>
+                                                                            <option>Mr. Zhang</option>
+                                                                            <option>Ms. Tan</option>
+                                                                            <option>Mr. Smith</option>
+                                                                            <option>Ms. Lee</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div>
+                                                                        <label class="block text-brown font-medium mb-1">Subject</label>
+                                                                        <input type="text" class="w-full border rounded-xl px-3 py-2" placeholder="Subject" required>
+                                                                    </div>
+                                                                    <div>
+                                                                        <label class="block text-brown font-medium mb-1">Message</label>
+                                                                        <textarea class="w-full border rounded-xl px-3 py-2" rows="4" placeholder="Type your message..." required></textarea>
+                                                                    </div>
+                                                                    <div class="flex gap-3 justify-end mt-6">
+                                                                        <button type="button" id="scheduleBtn" class="bg-gold text-brown px-4 py-2 rounded-xl font-semibold shadow hover:bg-brown hover:text-gold transition">Schedule</button>
+                                                                        <button type="button" id="cancelBtn" class="bg-brown text-white px-4 py-2 rounded-xl font-semibold shadow hover:bg-gold hover:text-brown transition">Cancel</button>
+                                                                        <button type="submit" class="bg-gold text-brown px-4 py-2 rounded-xl font-semibold shadow hover:bg-brown hover:text-gold transition">Send</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                 </div>
             </div>
 
@@ -755,4 +787,32 @@
         });
     </script>
 </body>
+<script>
+    // Show modal
+    document.querySelectorAll('button').forEach(btn => {
+        if (btn.textContent.includes('Compose New Message')) {
+            btn.addEventListener('click', () => {
+                document.getElementById('composeModal').classList.remove('hidden');
+            });
+        }
+    });
+    // Hide modal
+    document.getElementById('closeCompose').onclick = () => {
+        document.getElementById('composeModal').classList.add('hidden');
+    };
+    document.getElementById('cancelBtn').onclick = () => {
+        document.getElementById('composeModal').classList.add('hidden');
+    };
+    // Form submit
+    document.getElementById('composeForm').onsubmit = function(e) {
+        e.preventDefault();
+        document.getElementById('composeModal').classList.add('hidden');
+        alert('Message sent!');
+    };
+    // Schedule button
+    document.getElementById('scheduleBtn').onclick = function() {
+        document.getElementById('composeModal').classList.add('hidden');
+        alert('Message scheduled!');
+    };
+</script>
 </html>

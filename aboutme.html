@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albert Arthur | EdTech Specialist & Systems Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brown: '#6B3A00',
+                        gold: '#D4AF37',
+                        maroon: '#8A1538',
+                        cream: '#F7F4EF',
+                        white: '#FFFFFF'
+                    },
+                    borderRadius: {
+                        'custom': '20px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-rounded { border-radius: 20px; }
+        .gold-glow { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+        .dashed-border { border: 2px dashed #D4AF37; }
+        .progress-bar { transition: width 2s ease-in-out; }
+        .gold-accent { border-left: 4px solid #D4AF37; }
+        .hover-lift { transition: all 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+        .masonry-grid { column-count: 3; column-gap: 1rem; }
+        @media (max-width: 768px) { .masonry-grid { column-count: 1; } }
+        .masonry-item { break-inside: avoid; margin-bottom: 1rem; }
+    </style>
+</head>
+<body class="bg-cream font-sans">
+    <!-- Academic Excellence Section will be moved below -->
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-brown">Albert Arthur</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-brown hover:text-gold">About</a>
+                <a href="#projects" class="text-brown hover:text-gold">Projects</a>
+                <a href="#portfolio" class="text-brown hover:text-gold">Portfolio</a>
+                <a href="#skills" class="text-brown hover:text-gold">Skills</a>
+                <a href="#contact" class="text-brown hover:text-gold">Contact</a>
+            </div>
+            <button class="md:hidden text-brown">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex items-center py-16">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+            <!-- Left: Photo -->
+            <div class="w-full md:w-1/3 flex flex-col items-center">
+                <div class="w-72 h-72 rounded-full dashed-border gold-glow flex items-center justify-center mb-6">
+                    <img src="image/Albert.png" alt="Albert Arthur" class="w-64 h-64 rounded-full object-cover" />
+                </div>
+                <!-- Removed upload photo button -->
+            </div>
+
+            <!-- Right: Content -->
+            <div class="w-full md:w-2/3">
+                <h1 class="text-5xl md:text-7xl font-bold text-brown mb-4">Albert Arthur</h1>
+                <p class="text-xl text-brown mb-8">EdTech Specialist • Systems Engineer • Technology Consultant</p>
+                
+                <div class="gold-accent pl-6 mb-10">
+                    <p class="text-2xl italic text-brown">"Transforming education with technology, security, and human connection."</p>
+                    <div class="mt-6 text-brown text-base">
+                        <strong>Achievements:</strong><br>
+                        I’m an Education Digitalization & Innovation Specialist with a unique blend of expertise in IB Education, Systems Engineering, and Consulting. From earning a scholarship to IIT in Systems Engineering, completing advanced MIT courses in Security & Cryptography, to graduating with dual degrees including English Literature, I’ve built a career at the intersection of technology and learning. I mentor, consult, and help institutions reimagine education for the digital age.
+                    </div>
+                </div>
+
+                <!-- KPI Counters -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-gold counter" data-target="10">0</div>
+                        <p class="text-brown">Years Experience</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-gold counter" data-target="50">0</div>
+                        <p class="text-brown">Projects Delivered</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-gold counter" data-target="1000">0</div>
+                        <p class="text-brown">Students Impacted</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-gold counter" data-target="12">0</div>
+                        <p class="text-brown">Institutions Served</p>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap gap-4">
+                    <button class="px-8 py-4 bg-gold text-white rounded-custom hover-lift gold-glow">
+                        <i class="fas fa-download mr-2"></i>Download CV
+                    </button>
+                    <button class="px-8 py-4 border-2 border-brown text-brown rounded-custom hover-lift hover:bg-brown hover:text-white">
+                        <i class="fas fa-calendar mr-2"></i>Book Consultation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Me -->
+    <section id="about" class="py-20 bg-white">
+    <!-- Academic Excellence Section -->
+    <section id="academic-excellence" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brown text-center mb-10">Academic Excellence</h2>
+            <div class="grid md:grid-cols-3 gap-8 items-center justify-center">
+                <!-- MIT -->
+                <div class="bg-cream rounded-custom shadow-lg p-6 flex flex-col items-center">
+                    <img src="image/MIT.png" alt="Massachusetts Institute of Technology" class="w-32 h-32 mb-4 object-contain" />
+                    <h3 class="text-xl font-bold text-brown mb-2 text-center">Massachusetts Institute of Technology (MIT)</h3>
+                    <p class="text-gold font-semibold mb-1 text-center">United States</p>
+                    <ul class="text-brown text-sm list-disc list-inside mb-2">
+                        <li>Advanced Security & Cryptography (Certification)</li>
+                        <li>Digital Innovation in Education</li>
+                    </ul>
+                </div>
+                <!-- IIT -->
+                <div class="bg-cream rounded-custom shadow-lg p-6 flex flex-col items-center">
+                    <img src="image/IIT.png" alt="Indian Institute of Technology" class="w-32 h-32 mb-4 object-contain" />
+                    <h3 class="text-xl font-bold text-brown mb-2 text-center">Indian Institute of Technology (IIT)</h3>
+                    <p class="text-gold font-semibold mb-1 text-center">India</p>
+                    <ul class="text-brown text-sm list-disc list-inside mb-2">
+                        <li>Systems Engineering (Scholarship)</li>
+                        <li>Consulting & Innovation</li>
+                    </ul>
+                </div>
+                <!-- Birmingham State University -->
+                <div class="bg-cream rounded-custom shadow-lg p-6 flex flex-col items-center">
+                    <img src="image/ubm.jpg" alt="Birmingham State University" class="w-32 h-32 mb-4 object-contain" />
+                    <h3 class="text-xl font-bold text-brown mb-2 text-center">Birmingham State University</h3>
+                    <p class="text-gold font-semibold mb-1 text-center">United Kingdom</p>
+                    <ul class="text-brown text-sm list-disc list-inside mb-2">
+                        <li>English Literature (Dual Degree)</li>
+                        <li>Education Technology</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-10 text-center">
+                <h4 class="text-xl font-bold text-brown mb-2">More Certifications & Achievements</h4>
+                <p class="text-brown text-2xl max-w-2xl mx-auto">I’m an Education Digitalization & Innovation Specialist with a unique blend of expertise in IB Education, Systems Engineering, and Consulting. From earning a scholarship to IIT in Systems Engineering, completing advanced MIT courses in Security & Cryptography, to graduating with dual degrees including English Literature, I’ve built a career at the intersection of technology and learning. I mentor, consult, and help institutions reimagine education for the digital age.</p>
+            </div>
+        </div>
+    </section>
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-brown text-center mb-16">About Me</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Education Card -->
+                <div class="bg-cream p-8 rounded-custom shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gold flex items-center justify-center mr-4">
+                            <i class="fas fa-graduation-cap text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-brown">Education & Credentials</h3>
+                    </div>
+                    <div class="h-1 w-20 bg-gold mb-6"></div>
+                    <ul class="space-y-4 text-brown">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-gold mr-3 mt-1"></i>
+                            <span>Scholarship to IIT (Systems Engineering) via Indian Aptitude Test</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-gold mr-3 mt-1"></i>
+                            <span>MIT courses: System Security & Cryptography</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-gold mr-3 mt-1"></i>
+                            <span>BA in English Literature (Birmingham State University, dual-degree)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- What I Do Card -->
+                <div class="bg-cream p-8 rounded-custom shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gold flex items-center justify-center mr-4">
+                            <i class="fas fa-briefcase text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-brown">What I Do</h3>
+                    </div>
+                    <div class="h-1 w-20 bg-gold mb-6"></div>
+                    <ul class="space-y-4 text-brown">
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-gold mr-3 mt-1"></i>
+                            <span>EdTech Specialist (IB, LMS, Personalized Learning)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-gold mr-3 mt-1"></i>
+                            <span>Systems Engineering (Security, Infrastructure, Cryptography)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-gold mr-3 mt-1"></i>
+                            <span>Consulting & Mentorship for schools, startups, enterprises</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects & Consulting -->
+    <section id="projects" class="py-20 bg-cream">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-brown text-center mb-16">Projects & Consulting</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Project Card 5: Telemedicine Platform -->
+                <div class="bg-white rounded-custom shadow-lg overflow-hidden hover-lift">
+                    <div class="h-48 dashed-border bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img src="image/overview (1).png" alt="DEG Education Platform" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-brown mb-2">DEG Education Platform</h3>
+                        <p class="text-gold mb-2">Digital Learning Solutions</p>
+                        <p class="text-brown mb-4">Designed and implemented the DEG Education Platform, providing scalable digital learning tools and resources for schools and organizations.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">EdTech</span>
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">Digital Platform</span>
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">Learning</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 6: Hospital ERP Implementation -->
+                <div class="bg-white rounded-custom shadow-lg overflow-hidden hover-lift">
+                    <div class="h-48 dashed-border bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img src="image/Dashboard5.png" alt="ERP Implementation" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-brown mb-2">ERP Implementation</h3>
+                        <p class="text-gold mb-2">Enterprise Resource Planning</p>
+                        <p class="text-brown mb-4">Led the deployment of ERP systems for hospitals, streamlining operations, finance, and patient management for improved efficiency.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">ERP</span>
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">Healthcare</span>
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">Consulting</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 1 -->
+                <div class="bg-white rounded-custom shadow-lg overflow-hidden hover-lift">
+                    <div class="h-48 dashed-border bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img src="image/cons.jpg" alt="Jakarta Intercultural School" class="max-w-full max-h-full object-contain mx-auto" />
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-brown mb-2">Jakarta Intercultural School</h3>
+                        <p class="text-gold mb-2">AI Personalized Learning Integrations</p>
+                        <p class="text-brown mb-4">Implemented AI-driven personalized learning systems improving student engagement by 40%</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">EdTech</span>
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">AI</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 4: Healthcare Digitalization -->
+                <div class="bg-white rounded-custom shadow-lg overflow-hidden hover-lift">
+                    <div class="h-48 dashed-border bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img src="image/product_page.png" alt="Healthcare Digitalization Consultation" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-brown mb-2">Healthcare Digitalization Consultation</h3>
+                        <p class="text-gold mb-2">Consulting for Hospitals, Dana, and Other Organizations</p>
+                        <p class="text-brown mb-4">Provided strategic digitalization consulting for healthcare companies, including Dana, hospitals, and other organizations to modernize operations and improve patient care.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">Healthcare</span>
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">Consulting</span>
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">Digitalization</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="bg-white rounded-custom shadow-lg overflow-hidden hover-lift">
+                    <div class="h-48 dashed-border bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img src="image/image.jpg" alt="Face Recognition Attendance BINUS" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-brown mb-2">Face Recognition Attendance BINUS</h3>
+                        <p class="text-gold mb-2">Robotics & LMS Refinement</p>
+                        <p class="text-brown mb-4">Redesigned LMS infrastructure and implemented robotics curriculum for 500+ students</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">EdTech</span>
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">Robotics</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="bg-white rounded-custom shadow-lg overflow-hidden hover-lift">
+                    <div class="h-48 dashed-border bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img src="image/train1.jpg" alt="Ananda School Bekasi" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-brown mb-2">Ananda School Bekasi</h3>
+                        <p class="text-gold mb-2">Full Digitalization Consulting</p>
+                        <p class="text-brown mb-4">Led complete digital transformation for traditional school, implementing cloud-based systems</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">Consulting</span>
+                            <span class="px-3 py-1 bg-cream text-brown rounded-full text-sm">Digital Transformation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Gallery -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-brown text-center mb-8">Portfolio Gallery</h2>
+            
+            <!-- Filter Bar -->
+            <div class="flex justify-center flex-wrap gap-4 mb-12">
+                <button class="px-4 py-2 text-gold border-b-2 border-gold">All</button>
+                <button class="px-4 py-2 text-brown hover:text-gold">EdTech</button>
+                <button class="px-4 py-2 text-brown hover:text-gold">AI</button>
+                <button class="px-4 py-2 text-brown hover:text-gold">Systems</button>
+                <button class="px-4 py-2 text-brown hover:text-gold">Writing</button>
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="masonry-grid">
+                <div class="masonry-item relative dashed-border rounded-custom overflow-hidden bg-gray-100 h-72 flex items-center justify-center">
+                    <img src="image/mentor.jpeg" alt="Mentor" class="w-full h-full object-cover" />
+                </div>
+                <!-- Gallery Items -->
+                <div class="masonry-item relative dashed-border rounded-custom overflow-hidden bg-gray-100 h-64 flex items-center justify-center">
+                    <img src="image/Judge.jpg" alt="Judge" class="w-full h-full object-cover" />
+                </div>
+                <div class="masonry-item relative dashed-border rounded-custom overflow-hidden bg-gray-100 h-80 flex items-center justify-center">
+                    <img src="image/jusdge2.jpg" alt="Judge 2" class="w-full h-full object-cover" />
+                </div>
+                <div class="masonry-item relative dashed-border rounded-custom overflow-hidden bg-gray-100 h-72 flex items-center justify-center">
+                    <img src="image/judge3.jpg" alt="Judge 3" class="w-full h-full object-cover" />
+                </div>
+                <div class="masonry-item relative dashed-border rounded-custom overflow-hidden bg-gray-100 h-96 flex items-center justify-center">
+                    <img src="image/judge4.jpg" alt="Judge 4" class="w-full h-full object-cover" />
+                </div>
+                <div class="masonry-item relative dashed-border rounded-custom overflow-hidden bg-gray-100 h-64 flex items-center justify-center">
+                    <img src="image/teach.jpeg" alt="Teach" class="w-full h-full object-cover" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Expertise -->
+    <section id="skills" class="py-20 bg-cream">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-brown text-center mb-16">Skills & Expertise</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Icons Row -->
+                <div>
+                    <h3 class="text-2xl font-bold text-brown mb-8">Technical Proficiencies</h3>
+                    <div class="grid grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <i class="fab fa-python text-5xl text-brown mb-2"></i>
+                            <p class="text-brown">Python</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-html5 text-5xl text-brown mb-2"></i>
+                            <p class="text-brown">HTML</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-css3-alt text-5xl text-brown mb-2"></i>
+                            <p class="text-brown">CSS</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-js-square text-5xl text-brown mb-2"></i>
+                            <p class="text-brown">JavaScript</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-git-alt text-5xl text-brown mb-2"></i>
+                            <p class="text-brown">Git</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-terminal text-5xl text-brown mb-2"></i>
+                            <p class="text-brown">Bash</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-figma text-5xl text-brown mb-2"></i>
+                            <p class="text-brown">Figma</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bars -->
+                <div>
+                    <h3 class="text-2xl font-bold text-brown mb-8">Expertise Levels</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-brown">EdTech Integration</span>
+                            <span class="text-gold">95%</span>
+                        </div>
+                        <div class="w-full bg-white rounded-full h-4">
+                            <div class="progress-bar h-4 rounded-full bg-gold" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-brown">Systems Engineering</span>
+                            <span class="text-gold">90%</span>
+                        </div>
+                        <div class="w-full bg-white rounded-full h-4">
+                            <div class="progress-bar h-4 rounded-full bg-gold" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-brown">Security & Cryptography</span>
+                            <span class="text-gold">85%</span>
+                        </div>
+                        <div class="w-full bg-white rounded-full h-4">
+                            <div class="progress-bar h-4 rounded-full bg-gold" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-brown">Mentorship & Consulting</span>
+                            <span class="text-gold">92%</span>
+                        </div>
+                        <div class="w-full bg-white rounded-full h-4">
+                            <div class="progress-bar h-4 rounded-full bg-gold" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-brown">Technical Writing</span>
+                            <span class="text-gold">88%</span>
+                        </div>
+                        <div class="w-full bg-white rounded-full h-4">
+                            <div class="progress-bar h-4 rounded-full bg-gold" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Badges -->
+            <div class="mt-16 flex justify-center flex-wrap gap-4">
+                <span class="px-6 py-3 bg-maroon text-white rounded-full">IB Curriculum</span>
+                <span class="px-6 py-3 bg-maroon text-white rounded-full">AI in Education</span>
+                <span class="px-6 py-3 bg-maroon text-white rounded-full">Digital Transformation</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & CTA -->
+    <section id="contact" class="py-20 bg-gradient-to-b from-cream to-gold/20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-brown mb-8">Let's Build the Future of Learning Together</h2>
+            
+            <div class="flex justify-center gap-8 mb-12">
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full bg-gold flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-envelope text-white text-2xl"></i>
+                    </div>
+                    <p class="text-brown">email@example.com</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full bg-gold flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-linkedin-in text-white text-2xl"></i>
+                    </div>
+                    <p class="text-brown">linkedin.com/in/albertarthur</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full bg-gold flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-globe text-white text-2xl"></i>
+                    </div>
+                    <p class="text-brown">albertarthur.com</p>
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-6">
+                <button class="px-8 py-4 bg-gold text-white rounded-custom hover-lift gold-glow">
+                    <i class="fas fa-download mr-2"></i>Download CV
+                </button>
+                <button class="px-8 py-4 bg-brown text-white rounded-custom hover-lift">
+                    <i class="fas fa-comment mr-2"></i>Message Me
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brown text-gold py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center gap-2 mb-6">
+                <div class="w-8 h-8 rounded bg-[#6B3A00]"></div>
+                <div class="w-8 h-8 rounded bg-[#D4AF37]"></div>
+                <div class="w-8 h-8 rounded bg-[#8A1538]"></div>
+                <div class="w-8 h-8 rounded bg-[#F7F4EF]"></div>
+                <div class="w-8 h-8 rounded bg-[#FFFFFF]"></div>
+            </div>
+            <p class="text-center">© 2025 Albert Arthur — EdTech • Systems • Consulting</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Counter animation
+        function animateCounter(el, target) {
+            let count = 0;
+            let duration = 2000;
+            let increment = target / (duration / 16);
+            
+            let timer = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    count = target;
+                    clearInterval(timer);
+                }
+                el.textContent = Math.floor(count) + (target === 1000 ? '+' : '+');
+            }, 16);
+        }
+
+        // Progress bar animation
+        function animateProgressBar(bar, width) {
+            setTimeout(() => {
+                bar.style.width = width;
+            }, 100);
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('counter')) {
+                        const target = parseInt(entry.target.getAttribute('data-target'));
+                        animateCounter(entry.target, target);
+                    }
+                    
+                    if (entry.target.classList.contains('progress-bar')) {
+                        const width = entry.target.parentElement.nextElementSibling.textContent;
+                        animateProgressBar(entry.target, width);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe all counter and progress bar elements
+        document.querySelectorAll('.counter, .progress-bar').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Hover effects
+        document.querySelectorAll('.hover-lift').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                el.classList.add('gold-glow');
+            });
+            el.addEventListener('mouseleave', () => {
+                el.classList.remove('gold-glow');
+            });
+        });
+    </script>
+</body>
+</html>
